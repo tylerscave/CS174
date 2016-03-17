@@ -6,3 +6,25 @@
  * @author Tyler Jones
 */
 namespace soloRider\hw3;
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Image Rating</title>
+        <link href="./src/resources/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link rel="stylesheet" href="./src/styles/index.css" type="text/css"/>
+        <meta charset="utf-8"/>
+        <meta name="author" content="Tyler Jones"/>
+        <meta name="description" content="Image Rating entry page for CS174 Hw3"/>
+    </head>
+    <body>
+        <div class="centered">
+            <h1><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
+        </div>
+        <div class="right">
+            <a href="./message.php">Sign-in/Sign-up</a>
+        </div>
+    </body>
+</html>
+<?php
