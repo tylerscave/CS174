@@ -1,0 +1,6 @@
+COPYRIGHT (C) 2016 Tyler Jones. All Rights Reserved.
+issue.text contains issues that are needed to be worked on
+Solves CS174 Hw3
+@author Tyler Jones
+
+
