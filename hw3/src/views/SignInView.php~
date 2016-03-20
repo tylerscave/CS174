@@ -8,10 +8,11 @@
 namespace soloRider\hw3\views;
 
 
-class SignInView extends View
-{
+class SignInView extends View {
     /**
      * Draw the web page to the browser
      */
-    public function render($data);
+    public function render($data) {
+
+    }
 }

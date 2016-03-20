@@ -23,7 +23,7 @@ namespace soloRider\hw3;
             <h1><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
         </div>
         <div class="right">
-            <a href="./message.php">Sign-in/Sign-up</a>
+            <p class="link"><br><a href="./src/views/SignInView.php">Sign-in/Sign-up</a></p>
         </div>
     </body>
 </html>

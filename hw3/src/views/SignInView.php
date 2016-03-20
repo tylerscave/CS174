@@ -13,6 +13,7 @@ class SignInView extends View {
      * Draw the web page to the browser
      */
     public function render($data) {
-
+?>
+<p><a href="./src/views/CreateAccountView.php">Dont have an account yet?</a></p>
     }
 }
