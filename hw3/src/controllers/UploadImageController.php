@@ -21,7 +21,7 @@ class UploadImageController extends Controller {
         $data = [];
         // Your code here
         $data['PREVIOUS_EMAIL'] = $this->sanitize("email", "email");
-        $data['PREVIOUS_EMAIL_VALID'] = $this->validate("email", "string");
+        $data['PREVIOUS_EMAIL_VALID'] = $this->validate($data['PREVIOUS_EMAIL'], "email");
         $this->view("email")->render($data);
     }
 }

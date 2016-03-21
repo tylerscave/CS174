@@ -6,7 +6,7 @@
  * @author Tyler Jones
 */
 namespace soloRider\hw3\controllers;
-
+use soloRider\hw3 as B;
 
 
 

@@ -6,25 +6,25 @@
  * @author Tyler Jones
 */
 namespace soloRider\hw3;
+require_once "src/controllers/ImageRatingController.php";
 
-?>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Image Rating</title>
-        <link href="./src/resources/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <link rel="stylesheet" href="./src/styles/index.css" type="text/css"/>
-        <meta charset="utf-8"/>
-        <meta name="author" content="Tyler Jones"/>
-        <meta name="description" content="Image Rating entry page for CS174 Hw3"/>
-    </head>
-    <body>
-        <div class="centered">
-            <h1><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
-        </div>
-        <div class="right">
-            <p class="link"><br><a href="./src/views/SignInView.php">Sign-in/Sign-up</a></p>
-        </div>
-    </body>
-</html>
-<?php
+// defines for various namespaces
+define("NS_BASE", "soloRider\\hw3\\");
+define(NS_BASE . "NS_CONTROLLERS", "soloRider\\hw3\\controllers\\");
+define(NS_BASE . "NS_VIEWS", "soloRider\\hw3\\views\\");
+define(NS_BASE . "NS_ELEMENTS", "soloRider\\hw3\\views\\elements\\");
+define(NS_BASE . "NS_HELPERS", "soloRider\\hw3\\views\\helpers\\");
+define(NS_BASE . "NS_MODELS", "soloRider\\hw3\\models\\");
+define(NS_BASE . "NS_CONFIGS", "soloRider\\hw3\\configs\\");
+
+$allowed_controllers = ["imageRating"];
+//determine controller for request
+if (!empty($_REQUEST['c']) && in_array($_REQUEST['c'], $allowed_controllers)) {
+    $controller_name = NS_CONTROLLERS . ucfirst($_REQUEST['c']). "Controller";
+} else {
+    $controller_name = NS_CONTROLLERS . "ImageRatingController";
+}
+//instatiate controller for request
+$controller = new $controller_name();
+//process request
+$controller->processRequest();
