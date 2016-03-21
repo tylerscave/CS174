@@ -6,3 +6,11 @@
  * @author Tyler Jones
 */
 namespace soloRider\hw3\configs;
+
+class Config {
+    const DATABASE = 'imageRating';
+    const USER = '';
+    const PASSWD = '';
+    const HOST = '';
+    const PORT = '';
+}

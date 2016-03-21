@@ -6,6 +6,7 @@
  * @author Tyler Jones
 */
 namespace soloRider\hw3\controllers;
+require_once "Controller.php";
 
 class UploadImageController extends Controller {
 
@@ -20,8 +21,8 @@ class UploadImageController extends Controller {
     function processRequest() {
         $data = [];
         // Your code here
-        $data['PREVIOUS_EMAIL'] = $this->sanitize("email", "email");
-        $data['PREVIOUS_EMAIL_VALID'] = $this->validate($data['PREVIOUS_EMAIL'], "email");
-        $this->view("email")->render($data);
+        //$data['PREVIOUS_STRING'] = $this->sanitize("uploadImage", "string");
+        //$data['PREVIOUS_STRING_VALID'] = $this->validate($data['PREVIOUS_STRING'], "string");
+        $this->view("uploadImage")->render($data);
     }
 }

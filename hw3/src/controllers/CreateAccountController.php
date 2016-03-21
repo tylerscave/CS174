@@ -20,8 +20,8 @@ class CreateAccountController extends Controller {
     function processRequest() {
         $data = [];
         // Your code here
-        $data['PREVIOUS_EMAIL'] = $this->sanitize("email", "email");
-        $data['PREVIOUS_EMAIL_VALID'] = $this->validate("email", "string");
-        $this->view("email")->render($data);
+        $data['PREVIOUS_STIRNG'] = $this->sanitize("createAccount", "string");
+        $data['PREVIOUS_STRING_VALID'] = $this->validate($data['PREVIOUS_STRING'], "string");
+        $this->view("createAccount")->render($data);
     }
 }

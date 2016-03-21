@@ -17,7 +17,7 @@ define(NS_BASE . "NS_HELPERS", "soloRider\\hw3\\views\\helpers\\");
 define(NS_BASE . "NS_MODELS", "soloRider\\hw3\\models\\");
 define(NS_BASE . "NS_CONFIGS", "soloRider\\hw3\\configs\\");
 
-$allowed_controllers = ["imageRating"];
+$allowed_controllers = ["ImageRating"];
 //determine controller for request
 if (!empty($_REQUEST['c']) && in_array($_REQUEST['c'], $allowed_controllers)) {
     $controller_name = NS_CONTROLLERS . ucfirst($_REQUEST['c']). "Controller";
