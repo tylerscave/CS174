@@ -20,14 +20,14 @@ class UploadImageView extends View {
     <head>
         <title>Image Rating Upload</title>
         <link href="./src/resources/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <link rel="stylesheet" href="../styles/views.css" type="text/css"/>
+        <link rel="stylesheet" href="./src/styles/views.css" type="text/css"/>
         <meta charset="utf-8"/>
         <meta name="author" content="Tyler Jones"/>
         <meta name="description" content="Upload page for the Image Rating System"/>
     </head>
     <body>
         <div class="centered">
-            <h1><img src="../resources/logo.png" alt="Image Rating" /></h1>
+            <h1><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
         </div>
         <form action="index.php" method="POST" enctype="multipart/form-data">
             File:
