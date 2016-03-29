@@ -26,16 +26,23 @@ class ImageRatingView extends View {
                 <meta name="description" content="Image Rating entry page for CS174 Hw3"/>
             </head>
             <body>
-                <div class="centered">
-                    <h1><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
-                </div>
-                <form method="post" action="index.php">
-                    <label for="uploadLink">Do you have any images you would like to submit?</label>
-                    <input type="submit" id="uploadLink" name="uploadImage" value="Upload an Image">
-                </form>
-                <div class="right">
-                    <p class="link"><br><a href="./src/views/SignInView.php">Sign-in/Sign-up</a></p>
-                </div>
+                <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
+                <?php if(true) { ?>
+                    <form method="post" action="index.php">
+                        <input type="submit" class="buttonLink" name="signIn" value="Sign-in/Sign-up"/>
+                    </form>
+                <?php } elseif(true) { ?>
+                    <p class="signedIn"> User #<br>123456 </p>
+                <?php } ?>
+                <?php if(true) { ?>
+                    <form class="centered" method="post" action="index.php">
+                        <label for="uploadLink">Do you have any images you would like to submit?</label>
+                        <input type="submit" id="uploadLink" name="uploadImage" value="Upload an Image">
+                    </form>
+                <?php } ?>
+            <div>
+            a bunch<br> more stuff<br>
+            </div>
             </body>
         </html>
     <?php

@@ -20,8 +20,8 @@ class SignInController extends Controller {
     function processRequest() {
         $data = [];
         // Your code here
-        $data['PREVIOUS_EMAIL'] = $this->sanitize("email", "email");
-        $data['PREVIOUS_EMAIL_VALID'] = $this->validate("email", "string");
-        $this->view("email")->render($data);
+        //$data['PREVIOUS_EMAIL'] = $this->sanitize("email", "email");
+        //$data['PREVIOUS_EMAIL_VALID'] = $this->validate("email", "string");
+        $this->view("signIn")->render($data);
     }
 }

@@ -5,18 +5,28 @@
  * @author Tyler Jones
 */
 h1 {
-    margin-left:auto;
-    margin-right:auto;
+    /*text-align:center;*/
+}
+.centered {
     text-align:center;
 }
-div.right {
-    text-align:right;
-}
-p.link {
+.buttonLink {
     display:inline-block;
     height:3em;
     width:8em;
+    float:right;
+    text-decoration: underline;
     border-style:dashed;
+    background-color:yellow;
+    cursor: pointer;
+}
+.signedIn {
+    display:inline-block;
+    width:6em;
+    text-align:center;
+    float:right;
+    border-style:dashed;
+    border-color:gray;
     background-color:yellow;
 }
 
