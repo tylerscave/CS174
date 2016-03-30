@@ -5,12 +5,12 @@
  * Solves CS174 Hw3
  * @author Tyler Jones
 */
-namespace soloRider\hw3\configs;
 
+//This is currently set up for the default settings.
+//Please add any custom settings in the empty quotations
 class Config {
-    const DATABASE = 'imageRating';
-    const USER = '';
-    const PASSWD = '';
-    const HOST = '';
-    const PORT = '';
+    const DB = 'imageRating';
+    const USER = "";
+    const PWD = "";
+    const HOST = "";
 }
