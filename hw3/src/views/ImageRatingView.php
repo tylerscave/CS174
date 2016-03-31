@@ -40,6 +40,27 @@ class ImageRatingView extends View {
                         <input type="submit" id="uploadLink" name="uploadImage" value="Upload an Image">
                     </form>
                 <?php } ?>
+
+        <?php
+        if (!empty($data['UPLOADED_FILE'])) {
+            ?>
+            <p>The last file uploaded was:</p>
+            <p><?=$data['UPLOADED_FILE'] ?></p>
+            <?php
+            if (isset($data['UPLOADED_FILE_VALID']) &&
+                $data['UPLOADED_FILE_VALID'] == true) {
+                ?>
+                <p>The uploaded file is a valid JPEG file!</p>
+                <?php
+            } else {
+                ?>
+                <p>The uploaded file was not a valid JPEG file!</p>
+                <?php
+            }
+        }
+        ?>
+
+
             <div>
             a bunch<br> more stuff<br>
             </div>

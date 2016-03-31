@@ -6,33 +6,24 @@
  * @author Tyler Jones
 */
 namespace soloRider\hw3\models;
+//required for the constants
+require_once "Config.php";
 
 //NEED TO EDIT THIS WHOLE CLASS JUST PASTED IN EXAMPLE FOR STRUCTURE
 
 abstract class Model {
-
+    private $conn;
     /**
      * Connect to the database
     */
     public function connectToDB() {
-        // Connect to MySQL
-        $con = mysqli_connect();
-        // Check connection
-        if (mysqli_connect_errno()) {
-            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        //Establish connection to database
+        $conn = new mysqli(Config::HOST, Config::USER, Config::PWD, Config::DB);
+        //Check connection was successful
+        if($conn->connect_error) {
+            echo "Connection failed: " . $conn->connect_error . "\n";
         }
-        // Make my_db the current database
-        $dbSelected = mysqli_select_db($con, "imageRating");
-        if (!$dbSelected) {
-            // If we couldn't get the db we wanted, then create the db
-            $imageDB = "CREATE DATABASE imageRating";
-            if (mysqli_query($imageDB, $con)) {
-                echo "Database imageRating created successfully\n";
-            } else {
-                echo "Error creating database: " . mysqli_error() . "\n";
-            }
-        }
-        return $con;
+        return $conn;
 // this will need to be closed somewhere. Maybe in the child models themselves after manipulation of DB
 //mysqli_close($con);
     }

@@ -6,6 +6,7 @@
  * @author Tyler Jones
 */
 namespace soloRider\hw3\controllers;
+require_once "Controller.php";
 
 class CreateAccountController extends Controller {
 

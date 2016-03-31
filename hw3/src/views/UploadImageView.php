@@ -27,12 +27,35 @@ class UploadImageView extends View {
             </head>
             <body>
                 <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
-                <form class="centered" id="fileUploadForm" action="index.php" method="POST"
-                        enctype="multipart/form-data">
-                    <label for="fileUploadForm">File:
-                    <input type="file" name="image">
+                <form class="centered" id="fileUploadForm" enctype="multipart/form-data">
+                    <label for="fileUpload">Select a File to Upload:</label>
+                    <input id="fileUpload" type="file" name="imageFile"><br>
+                    <label for="captionUpload">Add a caption to your image:</label>
+                    <input id="captionUpload" type="text" name="imageCaption" maxlength="100"><br>
                     <input type="submit" value="UPLOAD">
                 </form>
+                
+
+        <?php
+        if (!empty($data['UPLOADED_FILE'])) {
+            ?>
+            <p>The last file uploaded was:</p>
+            <p><?=$data['UPLOADED_FILE'] ?></p>
+            <?php
+            if (isset($data['UPLOADED_FILE_VALID']) &&
+                $data['UPLOADED_FILE_VALID'] == true) {
+                ?>
+                <p>The uploaded file is a valid JPEG file!</p>
+                <?php
+            } else {
+                ?>
+                <p>The uploaded file was not a valid JPEG file!</p>
+                <?php
+            }
+        }
+        ?>
+
+
             </body>
         </html>
     <?php

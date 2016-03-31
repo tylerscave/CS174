@@ -31,13 +31,12 @@ abstract class Controller {
      *      string or email.
      * @return $_REQUEST['$request_field'] after sanitization
      */
-    public function sanitize($request_field, $type)
-    {
+    public function sanitize($request_field, $type) {
         switch($type) {
             case "email":
                 $out = filter_input(INPUT_GET,
                     $request_field, FILTER_SANITIZE_EMAIL);
-                if ($out === false) {
+                if($out === false) {
                     $out = filter_input(INPUT_POST,
                         $request_field, FILTER_SANITIZE_EMAIL);
                 }
@@ -45,9 +44,15 @@ abstract class Controller {
             case "string":
                 $out = filter_input(INPUT_GET,
                     $request_field, FILTER_SANITIZE_STRING);
-                if ($out === false) {
+                if($out === false) {
                     $out = filter_input(INPUT_POST,
                         $request_field, FILTER_SANITIZE_STRING);
+                }
+                break;
+            case "file":
+                $out = filter_input(INPUT_GET, $request_field);
+                if($out === false) {
+                    $out = filter_input(INPUT_POST, $request_field);
                 }
                 break;
             default:
@@ -64,14 +69,18 @@ abstract class Controller {
      *  if a valid url.
      * @return bool whether $variable was of $type
      */
-    public function validate($variable, $type)
-    {
+    public function validate($variable, $type) {
         switch($type) {
             case "email":
                 $valid = filter_var($variable, FILTER_VALIDATE_EMAIL);
                 break;
             case "url":
                 $valid = filter_var($variable, FILTER_VALIDATE_URL);
+                break;
+            case "file":
+                //simple extension check here. Will check again when uploaded
+                $parts = (pathinfo($_GET[$variable]));
+                $valid = ($parts['extension'] == "jpeg");
                 break;
             default:
                 $valid = false;
@@ -86,8 +95,7 @@ abstract class Controller {
      *  would return an instance of FooView.
      * @return object instance of desired view.
      */
-    public function view($name)
-    {
+    public function view($name) {
         static $loaded_views = [];
         if (!empty($loaded_views[$name])) {
             return $loaded_views[$name];

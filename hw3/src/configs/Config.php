@@ -13,4 +13,5 @@ class Config {
     const USER = "";
     const PWD = "";
     const HOST = "";
+    const PORT = "";
 }
