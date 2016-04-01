@@ -25,7 +25,7 @@ if (!empty($_REQUEST['c']) && in_array($_REQUEST['c'], $allowed_controllers)) {
     $controller_name = NS_CONTROLLERS . ucfirst($_REQUEST['c']). "Controller";
 } elseif (isset($_REQUEST['signIn'])) {
     $controller_name = NS_CONTROLLERS . "SignInController";
-} elseif (isset($_REQUEST['uploadImage'])) {
+} elseif (isset($_REQUEST['uploadImage']) || isset($_REQUEST['imageFile'])) {
     $controller_name = NS_CONTROLLERS . "UploadImageController";
 } else {
     $controller_name = NS_CONTROLLERS . "ImageRatingController";

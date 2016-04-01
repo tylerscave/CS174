@@ -20,12 +20,9 @@ class ImageRatingController extends Controller {
      */
     function processRequest() {
         $data = [];
-        // Your code here
-        //$data['PREVIOUS_EMAIL'] = $this->sanitize("email", "email");
-        //$data['PREVIOUS_EMAIL_VALID'] = $this->validate($data['PREVIOUS_EMAIL'], "email");
 
-        $data['UPLOADED_FILE'] = $this->sanitize("imageFile", "file");
-        $data['UPLOADED_FILE_VALID'] = $this->validate("imageFile", "file");
+        //$data['UPLOADED_FILE'] = $this->sanitize("imageFile", "file");
+        //$data['UPLOADED_FILE_VALID'] = $this->validate("imageFile", "file");
 
         $this->view("imageRating")->render($data);
     }

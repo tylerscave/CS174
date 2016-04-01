@@ -9,7 +9,6 @@ namespace soloRider\hw3\views;
 require_once "View.php";
 
 class UploadImageView extends View {
-
     /**
      * Draw the web page to the browser
      */
@@ -34,28 +33,33 @@ class UploadImageView extends View {
                     <input id="captionUpload" type="text" name="imageCaption" maxlength="100"><br>
                     <input type="submit" value="UPLOAD">
                 </form>
-                
-
-        <?php
-        if (!empty($data['UPLOADED_FILE'])) {
-            ?>
-            <p>The last file uploaded was:</p>
-            <p><?=$data['UPLOADED_FILE'] ?></p>
-            <?php
-            if (isset($data['UPLOADED_FILE_VALID']) &&
-                $data['UPLOADED_FILE_VALID'] == true) {
-                ?>
-                <p>The uploaded file is a valid JPEG file!</p>
-                <?php
-            } else {
-                ?>
-                <p>The uploaded file was not a valid JPEG file!</p>
-                <?php
-            }
-        }
-        ?>
-
-
+                <div class="centered">
+                    <?php
+                    if(isset($data['UPLOADED_FILE'])) {
+                    ?>
+                        <p>The image you selected was: <?=$data['UPLOADED_FILE'] ?></p>
+                    <?php
+                    } else if(!empty($data['UPLOADED_FILE'])) {
+                    ?>
+                        <p>You did not select a valid file. Please try again.</p>
+                    <?php
+                    }
+                    if(isset($data['UPLOADED_FILE_VALID']) && $data['UPLOADED_FILE_VALID'] == true) {
+                    ?>
+                        <p>The uploaded file is a valid JPEG file and was successfully uploaded!</p>
+                    <?php
+                    } else if(!empty($data['UPLOADED_FILE'])) {
+                    ?>
+                        <p>The uploaded file was not a valid JPEG file, please try again with a valid JPEG file.</p>
+                    <?php
+                    }
+                    ?>
+                    <br>
+                    <form class="centered" method="post" action="index.php">
+                        <label for="returnButton">Done uploading images?</label>
+                        <input type="submit" id="returnButton" name="" value="Return">
+                    </form>
+                </div>
             </body>
         </html>
     <?php

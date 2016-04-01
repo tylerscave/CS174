@@ -27,38 +27,26 @@ class ImageRatingView extends View {
             </head>
             <body>
                 <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
-                <?php if(true) { ?>
+                <?php if(true) {
+                ?>
                     <form method="post" action="index.php">
                         <input type="submit" class="buttonLink" name="signIn" value="Sign-in/Sign-up"/>
                     </form>
-                <?php } elseif(true) { ?>
+                <?php
+                } elseif(true) {
+                ?>
                     <p class="signedIn"> User #<br>123456 </p>
-                <?php } ?>
-                <?php if(true) { ?>
+                <?php
+                }
+                if(true) {
+                ?>
                     <form class="centered" method="post" action="index.php">
                         <label for="uploadLink">Do you have any images you would like to submit?</label>
                         <input type="submit" id="uploadLink" name="uploadImage" value="Upload an Image">
                     </form>
-                <?php } ?>
-
-        <?php
-        if (!empty($data['UPLOADED_FILE'])) {
-            ?>
-            <p>The last file uploaded was:</p>
-            <p><?=$data['UPLOADED_FILE'] ?></p>
-            <?php
-            if (isset($data['UPLOADED_FILE_VALID']) &&
-                $data['UPLOADED_FILE_VALID'] == true) {
-                ?>
-                <p>The uploaded file is a valid JPEG file!</p>
                 <?php
-            } else {
+                }
                 ?>
-                <p>The uploaded file was not a valid JPEG file!</p>
-                <?php
-            }
-        }
-        ?>
 
 
             <div>
