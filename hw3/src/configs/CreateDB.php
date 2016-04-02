@@ -10,20 +10,20 @@
 require_once "Config.php";
 
 //Establish connection to database
-$conn = new mysqli(Config::HOST, Config::USER, Config::PWD, "");
+$conn = new mysqli(HOST, USER, PWD, "");
 //Check connection was successful
 if($conn->connect_error) {
     echo "Connection failed: " . $conn->connect_error . "\n";
 }
 //Create the database
-$sql = "CREATE DATABASE " . Config::DB;
+$sql = "CREATE DATABASE " . DB;
 if($conn->query($sql) === TRUE) {
-    echo "Database " . Config::DB . " created successfully \n";
+    echo "Database " . DB . " created successfully \n";
 } else {
     echo "Error creating database: " . $conn->error . "\n";
 }
 //Create the USER table
-$conn->select_db(Config::DB);
+$conn->select_db(DB);
 $tbl = "CREATE TABLE USER(
     id INT(6) AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(50) UNIQUE NOT NULL,
