@@ -8,6 +8,7 @@
 namespace soloRider\hw3;
 require_once "src/controllers/ImageRatingController.php";
 require_once "src/controllers/SignInController.php";
+require_once "src/controllers/CreateAccountController.php";
 require_once "src/controllers/UploadImageController.php";
 
 // defines for various namespaces
@@ -19,12 +20,14 @@ define(NS_BASE . "NS_HELPERS", "soloRider\\hw3\\views\\helpers\\");
 define(NS_BASE . "NS_MODELS", "soloRider\\hw3\\models\\");
 define(NS_BASE . "NS_CONFIGS", "soloRider\\hw3\\configs\\");
 
-$allowed_controllers = ["ImageRating", "UploadImage", "SignIn"];
+$allowed_controllers = ["ImageRating", "UploadImage", "SignIn", "CreateAccount"];
 //determine controller for request
 if (!empty($_REQUEST['c']) && in_array($_REQUEST['c'], $allowed_controllers)) {
     $controller_name = NS_CONTROLLERS . ucfirst($_REQUEST['c']). "Controller";
-} elseif (isset($_REQUEST['signIn'])) {
+} elseif (isset($_REQUEST['signIn']) || isset($_REQUEST['login'])) {
     $controller_name = NS_CONTROLLERS . "SignInController";
+} elseif (isset($_REQUEST['createAccount'])) {
+    $controller_name = NS_CONTROLLERS . "CreateAccountController";
 } elseif (isset($_REQUEST['uploadImage']) || isset($_REQUEST['imageFile'])) {
     $controller_name = NS_CONTROLLERS . "UploadImageController";
 } else {

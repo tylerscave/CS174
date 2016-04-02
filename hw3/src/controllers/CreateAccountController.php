@@ -21,8 +21,8 @@ class CreateAccountController extends Controller {
     function processRequest() {
         $data = [];
         // Your code here
-        $data['PREVIOUS_STIRNG'] = $this->sanitize("createAccount", "string");
-        $data['PREVIOUS_STRING_VALID'] = $this->validate($data['PREVIOUS_STRING'], "string");
+        //$data['PREVIOUS_STIRNG'] = $this->sanitize("createAccount", "string");
+        //$data['PREVIOUS_STRING_VALID'] = $this->validate($data['PREVIOUS_STRING'], "string");
         $this->view("createAccount")->render($data);
     }
 }

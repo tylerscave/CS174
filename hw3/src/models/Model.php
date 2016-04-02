@@ -11,6 +11,8 @@ require_once "Config.php";
 
 //NEED TO EDIT THIS WHOLE CLASS JUST PASTED IN EXAMPLE FOR STRUCTURE
 
+//INSERT INTO USER (email, password) VALUES ('tylerjones365@gmail.com', 'test');
+
 abstract class Model {
     private $conn;
     /**
@@ -29,9 +31,20 @@ abstract class Model {
     }
 
     /**
+     * updateModel updates the model from the database
      * This method should be overriden
      */
-    public abstract function doStuff();
+    //public abstract function updateModel();
+
+    /**
+     * Used to do something that is common to each model
+    */
+    public function doCommonStuff($someParameters) {
+        /**
+         * Add actual code here
+        */
+        return $out;
+    }
 
     /**
      * Used to do something that is common to each model

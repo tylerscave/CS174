@@ -26,7 +26,19 @@ class SignInView extends View {
             </head>
             <body>
                 <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
-                <p><a href="./src/views/CreateAccountView.php">Dont have an account yet?</a></p>
+                <p class="centered">Sign In form for Image Rating</p>
+                <form class="centered" id="loginForm" method="post">
+                    <label for="emailField">Email:</label>
+                    <input id="emailField" type="text" name="loginEmail"><br>
+                    <label for="passwordField">Password:</label>
+                    <input id="passwordField" type="password" name="loginPassword"><br>
+                    <input type="submit" name="login" value="Login">
+                </form>
+
+                <form class="centered" method="post">
+                    <label for="createAccountLink">Don't have an account yet?</label>
+                    <input type="submit" id="createAccountLink" name="createAccount" value="Create Account">
+                </form>
             </body>
         </html>
     <?php

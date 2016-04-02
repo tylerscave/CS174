@@ -20,8 +20,6 @@ class UploadImageController extends Controller {
      */
     function processRequest() {
         $data = [];
-        //$data['UPLOADED_FILE'] = $this->sanitize("file", "file");
-        //$data['UPLOADED_FILE_VALID'] = $this->validate($data['UPLOADED_FILE'], "file");
 /*
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);

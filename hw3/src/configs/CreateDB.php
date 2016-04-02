@@ -25,8 +25,8 @@ if($conn->query($sql) === TRUE) {
 //Create the USER table
 $conn->select_db(Config::DB);
 $tbl = "CREATE TABLE USER(
-    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(50) NOT NULL,
+    id INT(6) AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(32) NOT NULL,
     fileName VARCHAR(30),
     caption VARCHAR(100),
@@ -37,6 +37,7 @@ if ($conn->query($tbl) === TRUE) {
 } else {
     echo "Error creating table: " . $conn->error . "\n";
 }
+$conn->query("ALTER TABLE USER AUTO_INCREMENT = 100000");
 $conn->close();
 
 /*

@@ -36,7 +36,7 @@ abstract class Controller {
             case "email":
                 $out = filter_input(INPUT_GET,
                     $request_field, FILTER_SANITIZE_EMAIL);
-                if($out === false) {
+                if($out == false) {
                     $out = filter_input(INPUT_POST,
                         $request_field, FILTER_SANITIZE_EMAIL);
                 }
@@ -44,14 +44,14 @@ abstract class Controller {
             case "string":
                 $out = filter_input(INPUT_GET,
                     $request_field, FILTER_SANITIZE_STRING);
-                if($out === false) {
+                if($out == false) {
                     $out = filter_input(INPUT_POST,
                         $request_field, FILTER_SANITIZE_STRING);
                 }
                 break;
             case "file":
                 $out = filter_input(INPUT_GET, $request_field);
-                if($out === false) {
+                if($out == false) {
                     $out = filter_input(INPUT_POST, $request_field);
                 }
                 break;
