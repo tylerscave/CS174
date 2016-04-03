@@ -8,15 +8,6 @@
 namespace soloRider\hw3\controllers;
 use soloRider\hw3 as B;
 
-
-
-
-//NEED TO EDIT THIS WHOLE CLASS JUST PASTED IN EXAMPLE FOR STRUCTURE
-
-
-
-
-
 abstract class Controller {
     /**
      * This method should be overriden to handle requests to a controller

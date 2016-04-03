@@ -27,31 +27,27 @@ class ImageRatingView extends View {
             </head>
             <body>
                 <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
-                <?php if(true) { //(!$SESSION['login']) {
+                <?php if(isset($_SESSION['id'])) {
                 ?>
                     <form method="post" action="index.php">
-                        <input type="submit" class="buttonLink" name="signIn" value="Sign-in/Sign-up"/>
+                        <input type="submit" class="buttonLink" name="logout" value="Log Out"/>
                     </form>
-                <?php
-                } elseif(false) {//($_SESSION['login']) {
-                ?>
-                    <p class="signedIn"> User #<br><?=$_SESSION['id'] ?> </p>
-                <?php
-                }
-                if(true) {
-                ?>
                     <form class="centered" method="post" action="index.php">
                         <label for="uploadLink">Do you have any images you would like to submit?</label>
                         <input type="submit" id="uploadLink" name="uploadImage" value="Upload an Image">
                     </form>
                 <?php
+                } else {
+                ?>
+                    <form method="post" action="index.php">
+                        <input type="submit" class="buttonLink" name="signIn" value="Sign-in/Sign-up"/>
+                    </form>
+                <?php
                 }
                 ?>
-
-
-            <div>
-            a bunch<br> more stuff<br>
-            </div>
+                <div>
+                    a bunch<br> more stuff<br>
+                </div>
             </body>
         </html>
     <?php

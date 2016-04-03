@@ -6,12 +6,10 @@
  * @author Tyler Jones
 */
 namespace soloRider\hw3\models;
+use Mysqli;
 //required for the constants
-require_once "Config.php";
+require_once(realpath(dirname(__FILE__) . '/../configs/Config.php'));
 
-//NEED TO EDIT THIS WHOLE CLASS JUST PASTED IN EXAMPLE FOR STRUCTURE
-
-//INSERT INTO USER (email, password) VALUES ('tylerjones365@gmail.com', 'test');
 
 abstract class Model {
     private $conn;
@@ -20,12 +18,12 @@ abstract class Model {
     */
     public function connectToDB() {
         //Establish connection to database
-        $conn = new mysqli(Config::HOST, Config::USER, Config::PWD, Config::DB);
+        $this->conn = new mysqli(HOST, USER, PWD, DB);
         //Check connection was successful
-        if($conn->connect_error) {
-            echo "Connection failed: " . $conn->connect_error . "\n";
+        if($this->conn->connect_error) {
+            echo "Connection failed: " . $this->conn->connect_error . "\n";
         }
-        return $conn;
+        return $this->conn;
 // this will need to be closed somewhere. Maybe in the child models themselves after manipulation of DB
 //mysqli_close($con);
     }
@@ -49,7 +47,7 @@ abstract class Model {
     /**
      * Used to do something that is common to each model
     */
-    public function doCommonStuff($someParameters) {
+    public function doOtherCommonStuff($someParameters) {
         /**
          * Add actual code here
         */

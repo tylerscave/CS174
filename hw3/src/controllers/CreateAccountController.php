@@ -6,12 +6,17 @@
  * @author Tyler Jones
 */
 namespace soloRider\hw3\controllers;
+use soloRider\hw3\models as B;
+require_once(realpath(dirname(__FILE__) . '/../models/UserModel.php'));
 require_once "Controller.php";
 
+
 class CreateAccountController extends Controller {
+    private $user;
 
-
-//PASTED IN AS EXAMPLE NEED TO EDIT
+    public function __construct() {
+        $this->user = new B\UserModel();
+    }
 
     /**
      * Used to handle form data coming from EmailView.
@@ -20,9 +25,22 @@ class CreateAccountController extends Controller {
      */
     function processRequest() {
         $data = [];
-        // Your code here
-        //$data['PREVIOUS_STIRNG'] = $this->sanitize("createAccount", "string");
-        //$data['PREVIOUS_STRING_VALID'] = $this->validate($data['PREVIOUS_STRING'], "string");
+        //sanitize and validate login inputs
+        $data['CREATE_EMAIL'] = $this->sanitize("createEmail", "email");
+        $data['CREATE_EMAIL_VALID'] = $this->validate($data['CREATE_EMAIL'], "email");
+        $data['CREATE_PASSWORD'] = $this->sanitize("createPassword", "string");
+        $data['CONFIRM_PASSWORD'] = $this->sanitize("confirmPassword", "string");
+        if(isset($data['CREATE_EMAIL_VALID']) && isset($data['CREATE_EMAIL_VALID']) && ($data['CREATE_PASSWORD'] == $data['CONFIRM_PASSWORD'])) {
+            $result = $this->user->createUser($data['CREATE_EMAIL_VALID'], $data['CREATE_PASSWORD']);
+            if($result) {
+                $data['ACCOUNT_CREATED'] = "You're account was successfully created";
+                //goto signin page
+            } else if(isset($data['ACCOUNT_EXISTS'])) {
+                $data['ACCOUNT_EXISTS'] = "You already have an account with Image Rating!";
+            }
+        } else if(isset($data['CREATE_EMAIL_VALID']) || isset($data['CREATE_PASSWORD']) || isset($data['CONFIRM_PASSWORD'])) {
+            $data['ACCOUNT_NOT_CREATED'] = "Something went wrong, please try again.";
+        }
         $this->view("createAccount")->render($data);
     }
 }

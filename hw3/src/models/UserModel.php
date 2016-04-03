@@ -10,48 +10,45 @@ require_once "Model.php";
 
 class UserModel extends Model {
     private $conn;
-    private $id;
-    private $email;
-    private $pwd;
 
     public function __construct() {
-        $this->conn = this->connectToDB();
-        $this->id;
-        $this->email;
-        $this->pwd;
+        $this->conn = $this->connectToDB();
     }
 
     public function createUser($email, $pwd) {
         $pwd = md5($pwd);
-        $emails = "SELECT * FROM USER WHERE email='$email'";
+        $email_query = "SELECT * FROM USER WHERE email='$email'";
         //checking if the email already exists
-        $check =  $conn->query($emails) ;
+        $check =  $this->conn->query($email_query) ;
         $rowCount = $check->num_rows;
         //if the email is not in the table, create new user
         if ($rowCount == 0){
             $sql = "INSERT INTO USER SET email='$email', password='$pwd'";
-            $success = ($conn->query($sql) or die(mysqli_connect_errno() . "Data cannot inserted"));
+            $success = ($this->conn->query($sql) or die(mysqli_connect_errno() . "Data cannot inserted"));
             return $success;
         } else {
             return false;
         }
+        //mysqli_close($this->conn);
     }
 
-    public function login($email, $pwd) {
-        $pwd = ($pwd);
-        $id = "SELECT id FROM USER WHERE email='$email' and password='$pwd'";
-        //checking if the username is available in the table
-        $ids = $conn->query($id);
-        $idArray = mysqli_fetch_array($ids);
-        $rowCount = $idArray->num_rows;
-        if ($rowCount == 1) {
-            // this login var will be used for the session
-            $_SESSION['login'] = true;
-            $_SESSION['id'] = $idArray['id'];
-            return true;
-        } else {
-            return false;
+    public function checkLogin($email, $pwd) {
+        $pwd = md5($pwd);
+        $id_query = "SELECT id FROM USER WHERE email = ? and password = ?";
+        $stmt =  $this->conn->prepare($id_query);
+        $stmt->bind_param("ss", $email, $pwd); //s == string
+        $stmt->execute();
+        $stmt->store_result();
+        $rowCount = $stmt->num_rows;
+        $stmt->bind_result($id);
+        if($stmt->fetch()) {
+            $id = $id;
         }
+        if ($rowCount == 1) {
+            return $id;
+        }
+        mysqli_stmt_close($stmt);
+        //mysqli_close($this->conn);
     }
 
     private function getUserId() {
@@ -67,11 +64,11 @@ class UserModel extends Model {
     }
 
     private function setEmail($email) {
-        this->email = $email;
+        //this->email = $email;
     }
 
-    private function getPassword($pwd) {
-        this->pwd = $pwd;
+    private function setPassword($pwd) {
+        //this->pwd = $pwd;
     }
 
 

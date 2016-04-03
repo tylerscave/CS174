@@ -10,9 +10,6 @@ require_once "Controller.php";
 
 class ImageRatingController extends Controller {
 
-
-//PASTED IN AS EXAMPLE NEED TO EDIT
-
     /**
      * Used to handle form data coming from EmailView.
      * Should sanitize that data and check if the email within it was
@@ -20,7 +17,10 @@ class ImageRatingController extends Controller {
      */
     function processRequest() {
         $data = [];
-
+        if(isset($_REQUEST['logout'])) {
+            session_destroy();
+            unset($_REQUEST['login']);
+        }
         //$data['UPLOADED_FILE'] = $this->sanitize("imageFile", "file");
         //$data['UPLOADED_FILE_VALID'] = $this->validate("imageFile", "file");
 
