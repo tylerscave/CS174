@@ -40,22 +40,21 @@ class CreateAccountView extends View {
                 if(isset($data['ACCOUNT_CREATED'])) {
                 ?>
                     <p class="centered"><?=$data['ACCOUNT_CREATED'] ?></p>
-                    </form>
-                    <form class="centered" method="post" action="index.php">
-                        <label for="loginReturn">Done creating accounts?</label>
-                        <input type="submit" id="loginReturn" name="signIn" value="Sign-in">
-                    </form>
                 <?php
-                } else if(isset($data['ACCOUNT_EXISTS'])) {
+                } elseif(isset($data['ACCOUNT_EXISTS'])) {
                 ?>
                     <p class="centered"><?=$data['ACCOUNT_EXISTS'] ?></p>
                 <?php
-                } else if(isset($data['ACCOUNT_NOT_CREATED'])) {
+                } elseif(isset($data['ACCOUNT_NOT_CREATED'])) {
                 ?>
                     <p class="centered"><?=$data['ACCOUNT_NOT_CREATED'] ?></p>
                 <?php
                 }
                 ?>
+                <form class="centered" method="post" action="index.php">
+                    <label for="loginReturn">Done creating accounts?</label>
+                    <input type="submit" id="loginReturn" name="signIn" value="Sign-in">
+                </form>
             </body>
         </html>
     <?php

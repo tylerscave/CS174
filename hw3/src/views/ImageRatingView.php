@@ -45,8 +45,12 @@ class ImageRatingView extends View {
                 <?php
                 }
                 ?>
-                <div>
+                <div class="recent">
+                    <h2 class="centered"><img src="./src/resources/recentLogo.png" alt="Recent" /></h1>
                     a bunch<br> more stuff<br>
+                </div>
+                <div class="popularity">
+                    <h2 class="centered"><img src="./src/resources/popularityLogo.png" alt="Popularity" /></h1>
                 </div>
             </body>
         </html>

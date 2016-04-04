@@ -30,16 +30,18 @@ class CreateAccountController extends Controller {
         $data['CREATE_EMAIL_VALID'] = $this->validate($data['CREATE_EMAIL'], "email");
         $data['CREATE_PASSWORD'] = $this->sanitize("createPassword", "string");
         $data['CONFIRM_PASSWORD'] = $this->sanitize("confirmPassword", "string");
-        if(isset($data['CREATE_EMAIL_VALID']) && isset($data['CREATE_EMAIL_VALID']) && ($data['CREATE_PASSWORD'] == $data['CONFIRM_PASSWORD'])) {
+        if(isset($_REQUEST['submitCreateAccount']) && isset($data['CREATE_EMAIL_VALID']) && ($data['CREATE_PASSWORD'] == $data['CONFIRM_PASSWORD'])) {
             $result = $this->user->createUser($data['CREATE_EMAIL_VALID'], $data['CREATE_PASSWORD']);
             if($result) {
                 $data['ACCOUNT_CREATED'] = "You're account was successfully created";
                 //goto signin page
-            } else if(isset($data['ACCOUNT_EXISTS'])) {
+            } else {
                 $data['ACCOUNT_EXISTS'] = "You already have an account with Image Rating!";
+                //goto signin page
             }
-        } else if(isset($data['CREATE_EMAIL_VALID']) || isset($data['CREATE_PASSWORD']) || isset($data['CONFIRM_PASSWORD'])) {
+        } elseif(isset($_REQUEST['submitCreateAccount'])) {
             $data['ACCOUNT_NOT_CREATED'] = "Something went wrong, please try again.";
+                //stay on this page
         }
         $this->view("createAccount")->render($data);
     }

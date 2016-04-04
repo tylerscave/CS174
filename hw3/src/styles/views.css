@@ -8,6 +8,8 @@ h1 {
     /*text-align:center;*/
 }
 .centered {
+    left-margin:0, auto;
+    right-margin:0, auto;
     text-align:center;
 }
 .buttonLink {

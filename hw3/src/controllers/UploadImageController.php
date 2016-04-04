@@ -58,9 +58,10 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
 */
-        $data['UPLOADED_FILE'] = $this->sanitize("imageFile", "file");
-        $data['UPLOADED_FILE_VALID'] = $this->validate("imageFile", "file");
-
+        if(isset($_REQUEST['upload'])) {
+            $data['UPLOADED_FILE'] = $this->sanitize("imageFile", "file");
+            $data['UPLOADED_FILE_VALID'] = $this->validate("imageFile", "file");
+        }
         $this->view("uploadImage")->render($data);
     }
 }

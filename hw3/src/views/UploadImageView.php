@@ -31,7 +31,7 @@ class UploadImageView extends View {
                     <input id="fileUpload" type="file" name="imageFile"><br>
                     <label for="captionUpload">Add a caption to your image:</label>
                     <input id="captionUpload" type="text" name="imageCaption" maxlength="100"><br>
-                    <input type="submit" value="UPLOAD">
+                    <input type="submit" name="upload" value="UPLOAD">
                 </form>
                 <div class="centered">
                     <?php

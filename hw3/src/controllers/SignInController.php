@@ -38,15 +38,17 @@ class SignInController extends Controller {
                 //this login and id variable will be used for the session
                 $_SESSION['login'] = true;
                 $_SESSION['id'] = $id;
+                //goto imageRating page
 //back button broken like this
-                $this->view("imageRating")->render($data);
+$this->view("imageRating")->render($data);
             } else {
                 // bad login
                 $_SESSION['login'] = false;
                 unset($_SESSION['id']);
                 $data['LOGIN_FAIL'] = "Incorrect Email or Password!!! Please try again :)";
+                //stay on signin page
 //back button broken like this
-                $this->view("signIn")->render($data);
+$this->view("signIn")->render($data);
             }
         } else {
             $this->view("signIn")->render($data);

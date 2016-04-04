@@ -20,6 +20,8 @@ class ImageRatingController extends Controller {
         if(isset($_REQUEST['logout'])) {
             session_destroy();
             unset($_REQUEST['login']);
+            unset($_SESSION['id']);
+            $_SESSION['login'] = false;
         }
         //$data['UPLOADED_FILE'] = $this->sanitize("imageFile", "file");
         //$data['UPLOADED_FILE_VALID'] = $this->validate("imageFile", "file");
