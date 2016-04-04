@@ -15,7 +15,7 @@ class UserModel extends Model {
         $this->conn = $this->connectToDB();
     }
 
-    public function createUser($email, $pwd) {
+    public function createUser($userName, $email, $pwd) {
         $pwd = md5($pwd);
         $email_query = "SELECT * FROM USER WHERE email='$email'";
         //checking if the email already exists
@@ -23,7 +23,7 @@ class UserModel extends Model {
         $rowCount = $check->num_rows;
         //if the email is not in the table, create new user
         if ($rowCount == 0){
-            $sql = "INSERT INTO USER SET email='$email', password='$pwd'";
+            $sql = "INSERT INTO USER SET userName='$userName', email='$email', password='$pwd'";
             $success = ($this->conn->query($sql) or die(mysqli_connect_errno() . "Data cannot inserted"));
             return $success;
         } else {
@@ -51,26 +51,16 @@ class UserModel extends Model {
         //mysqli_close($this->conn);
     }
 
-    private function getUserId() {
-        return $id;
+    public function getUserName($id) {
+        $userName_query = "SELECT userName FROM USER WHERE id='$id'";
+        $result = $this->conn->query($userName_query);
+        if($obj = $result->fetch_object()) {
+            $userName = $obj->userName;
+            return $userName;
+        } else {
+            return "anonymous user";
+        }
     }
-
-    private function getEmail() {
-        return $email;
-    }
-
-    private function getPassword() {
-        return $pwd;
-    }
-
-    private function setEmail($email) {
-        //this->email = $email;
-    }
-
-    private function setPassword($pwd) {
-        //this->pwd = $pwd;
-    }
-
 
 //mysqli_close($con);
 }

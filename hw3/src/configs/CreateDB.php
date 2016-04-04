@@ -26,6 +26,7 @@ if($conn->query($sql) === TRUE) {
 $conn->select_db(DB);
 $tbl = "CREATE TABLE USER(
     id INT(6) AUTO_INCREMENT PRIMARY KEY,
+    userName VARCHAR(20) UNIQUE NOT NULL,
     email VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(32) NOT NULL,
     fileName VARCHAR(30),

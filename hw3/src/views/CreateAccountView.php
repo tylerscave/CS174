@@ -28,6 +28,8 @@ class CreateAccountView extends View {
                 <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
                 <p class="centered">Create a new account for Image Rating</p>
                 <form class="centered" id="createAccountForm" method="post">
+                    <label for="userNameField">Email:</label>
+                    <input id="userNameField" type="text" name="createUserName"><br>
                     <label for="emailField">Email:</label>
                     <input id="emailField" type="text" name="createEmail"><br>
                     <label for="passwordField">Password:</label>

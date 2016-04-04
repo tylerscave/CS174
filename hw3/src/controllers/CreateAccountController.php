@@ -26,12 +26,14 @@ class CreateAccountController extends Controller {
     function processRequest() {
         $data = [];
         //sanitize and validate login inputs
+        $data['CREATE_USERNAME'] = $this->sanitize("createUserName", "string");
         $data['CREATE_EMAIL'] = $this->sanitize("createEmail", "email");
         $data['CREATE_EMAIL_VALID'] = $this->validate($data['CREATE_EMAIL'], "email");
         $data['CREATE_PASSWORD'] = $this->sanitize("createPassword", "string");
         $data['CONFIRM_PASSWORD'] = $this->sanitize("confirmPassword", "string");
-        if(isset($_REQUEST['submitCreateAccount']) && isset($data['CREATE_EMAIL_VALID']) && ($data['CREATE_PASSWORD'] == $data['CONFIRM_PASSWORD'])) {
-            $result = $this->user->createUser($data['CREATE_EMAIL_VALID'], $data['CREATE_PASSWORD']);
+        if(isset($_REQUEST['submitCreateAccount']) && isset($data['CREATE_EMAIL_VALID']) && isset($data['CREATE_USERNAME']) &&
+                ($data['CREATE_PASSWORD'] == $data['CONFIRM_PASSWORD'])) {
+            $result = $this->user->createUser($data['CREATE_USERNAME'], $data['CREATE_EMAIL_VALID'], $data['CREATE_PASSWORD']);
             if($result) {
                 $data['ACCOUNT_CREATED'] = "You're account was successfully created";
                 //goto signin page
