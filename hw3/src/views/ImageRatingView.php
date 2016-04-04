@@ -27,7 +27,7 @@ class ImageRatingView extends View {
             </head>
             <body>
                 <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
-                <?php if(isset($_SESSION['id'])) {
+                <?php if(isset($_SESSION['ID'])) {
                 ?>
                     <form method="post" action="index.php">
                         <input type="submit" class="buttonLink" name="logout" value="Log Out"/>

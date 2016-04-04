@@ -71,7 +71,6 @@ abstract class Controller {
             case "file":
                 //simple extension check here. Will check again when uploaded
                 $parts = (pathinfo($_GET[$variable]));
-echo "parts = " . print_r($parts);
                 $valid = ($parts['extension'] == "jpeg");
                 break;
             default:

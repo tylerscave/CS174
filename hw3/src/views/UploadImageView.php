@@ -57,7 +57,7 @@ class UploadImageView extends View {
                     <br>
                     <form class="centered" method="post" action="index.php">
                         <label for="returnButton">Done uploading images?</label>
-                        <input type="submit" id="returnButton" name="" value="Return">
+                        <input type="submit" id="returnButton" name="return" value="Return">
                     </form>
                 </div>
             </body>

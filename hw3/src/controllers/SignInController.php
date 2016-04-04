@@ -7,10 +7,9 @@
 */
 namespace soloRider\hw3\controllers;
 use soloRider\hw3\models as B;
-ini_set('display_errors', true);
-error_reporting(E_ALL);
 require_once(realpath(dirname(__FILE__) . '/../models/UserModel.php'));
 require_once "Controller.php";
+
 
 class SignInController extends Controller {
     private $user;
@@ -18,7 +17,6 @@ class SignInController extends Controller {
     public function __construct() {
         $this->user = new B\UserModel();
     }
-
     /**
      * Used to handle form data coming from EmailView.
      * Should sanitize that data and check if the email within it was
@@ -30,24 +28,21 @@ class SignInController extends Controller {
         $data['LOGIN_EMAIL'] = $this->sanitize("loginEmail", "email");
         $data['LOGIN_EMAIL_VALID'] = $this->validate($data['LOGIN_EMAIL'], "email");
         $data['LOGIN_PASSWORD'] = $this->sanitize("loginPassword", "string");
-
-        if (isset($_REQUEST['login'])) {
+        if (isset($data['LOGIN_EMAIL_VALID']) && isset($data['LOGIN_PASSWORD'])) {
             $id = $this->user->checkLogin($data['LOGIN_EMAIL_VALID'], $data['LOGIN_PASSWORD']);
             if (isset($id)) {
                 // Correct login provided
                 //this login and id variable will be used for the session
-                $_SESSION['login'] = true;
-                $_SESSION['id'] = $id;
-                //goto imageRating page
+                $_SESSION['LOGIN'] = true;
+                $_SESSION['ID'] = $id;
+                header('Location: http://localhost/serverRepos/hw3/index.php' );
             } else {
                 // bad login
-                $_SESSION['login'] = false;
-                unset($_SESSION['id']);
+                $_SESSION['LOGIN'] = false;
+                unset($_SESSION['ID']);
                 $data['LOGIN_FAIL'] = "Incorrect Email or Password!!! Please try again :)";
-                //stay on signin page
             }
         }
         $this->view("signIn")->render($data);
-
     }
 }

@@ -2,7 +2,7 @@
 /**
  *COPYRIGHT (C) 2016 Tyler Jones. All Rights Reserved.
  * index.php is the entry point for hw3
- * Solves CS174 Hw3
+ * Solves CS174 Hw3session_start();
  * @author Tyler Jones
 */
 namespace soloRider\hw3;
@@ -25,15 +25,13 @@ $allowed_controllers = ["ImageRating", "UploadImage", "SignIn", "CreateAccount"]
 //determine controller for request
 if (!empty($_REQUEST['c']) && in_array($_REQUEST['c'], $allowed_controllers)) {
     $controller_name = NS_CONTROLLERS . ucfirst($_REQUEST['c']). "Controller";
-} elseif (isset($_REQUEST['logout'])) {
+} elseif (isset($_REQUEST['logout']) || isset($_REQUEST['return'])) {
     $controller_name = NS_CONTROLLERS . "ImageRatingController";
-} elseif (isset($_SESSION['id']) && (isset($_REQUEST['login']))) {
-    $controller_name = NS_CONTROLLERS . "ImageRatingController";
-} elseif (isset($_REQUEST['signIn']) || (isset($_REQUEST['login']))) {
+} elseif (isset($_REQUEST['login']) || isset($_REQUEST['signIn']) || isset($_REQUEST['returnSignIn'])) {
     $controller_name = NS_CONTROLLERS . "SignInController";
 } elseif (isset($_REQUEST['createAccount']) || isset($_REQUEST['submitCreateAccount'])) {
     $controller_name = NS_CONTROLLERS . "CreateAccountController";
-} elseif (isset($_REQUEST['uploadImage']) || isset($_REQUEST['imageFile'])) {
+} elseif (isset($_REQUEST['uploadImage']) || isset($_REQUEST['upload'])) {
     $controller_name = NS_CONTROLLERS . "UploadImageController";
 } else {
     $controller_name = NS_CONTROLLERS . "ImageRatingController";

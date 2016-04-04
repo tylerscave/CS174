@@ -28,7 +28,7 @@ class CreateAccountView extends View {
                 <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
                 <p class="centered">Create a new account for Image Rating</p>
                 <form class="centered" id="createAccountForm" method="post">
-                    <label for="userNameField">Email:</label>
+                    <label for="userNameField">Username:</label>
                     <input id="userNameField" type="text" name="createUserName"><br>
                     <label for="emailField">Email:</label>
                     <input id="emailField" type="text" name="createEmail"><br>
@@ -46,6 +46,10 @@ class CreateAccountView extends View {
                 } elseif(isset($data['ACCOUNT_EXISTS'])) {
                 ?>
                     <p class="centered"><?=$data['ACCOUNT_EXISTS'] ?></p>
+                    <form class="centered" method="post" action="index.php">
+                        <label for="returnSignIn">Done creating accounts?</label>
+                        <input type="submit" id="returnSignIn" name="returnSignIn" value="Login">
+                    </form>
                 <?php
                 } elseif(isset($data['ACCOUNT_NOT_CREATED'])) {
                 ?>
@@ -53,10 +57,6 @@ class CreateAccountView extends View {
                 <?php
                 }
                 ?>
-                <form class="centered" method="post" action="index.php">
-                    <label for="loginReturn">Done creating accounts?</label>
-                    <input type="submit" id="loginReturn" name="signIn" value="Sign-in">
-                </form>
             </body>
         </html>
     <?php
