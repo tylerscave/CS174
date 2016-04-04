@@ -22,28 +22,32 @@ if($conn->query($sql) === TRUE) {
 } else {
     echo "Error creating database: " . $conn->error . "\n";
 }
-//Create the USER table
+//select the correct DB
 $conn->select_db(DB);
+//Create the USER table
 $tbl = "CREATE TABLE USER(
     id INT(6) AUTO_INCREMENT PRIMARY KEY,
     userName VARCHAR(20) UNIQUE NOT NULL,
     email VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(32) NOT NULL,
-    fileName VARCHAR(30),
-    caption VARCHAR(100),
-    rating INT(1),
-    timeUploaded TIMESTAMP)";
+    password VARCHAR(32) NOT NULL)";
 if ($conn->query($tbl) === TRUE) {
     echo "Table USER created successfully \n";
 } else {
     echo "Error creating table: " . $conn->error . "\n";
 }
 $conn->query("ALTER TABLE USER AUTO_INCREMENT = 100000");
+
+//Create the IMAGE table
+$tbl = "CREATE TABLE IMAGE(
+    id INT(6) PRIMARY KEY,
+    fileName VARCHAR(30),
+    caption VARCHAR(100),
+    rating INT(1),
+    timeUploaded TIMESTAMP)";
+if ($conn->query($tbl) === TRUE) {
+    echo "Table IMAGE created successfully \n";
+} else {
+    echo "Error creating table: " . $conn->error . "\n";
+}
 $conn->close();
 
-/*
-GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';
-CREATE USER 'lord_tyler'@'localhost' IDENTIFIED BY '';
-GRANT ALL PRIVILEGES ON MyDatabase.* TO 'lord_tyler'@'localhost';
-FLUSH PRIVILEGES;
-*/

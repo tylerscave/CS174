@@ -6,12 +6,16 @@
  * @author Tyler Jones
 */
 namespace soloRider\hw3\controllers;
+use soloRider\hw3\models as B;
+//require_once(realpath(dirname(__FILE__) . '/../models/ImageModel.php'));
 require_once "Controller.php";
 
 class UploadImageController extends Controller {
+    private $user;
 
-
-//PASTED IN AS EXAMPLE NEED TO EDIT
+    public function __construct() {
+        //$this->user = new B\ImageModel();
+    }
 
     /**
      * Used to handle form data coming from EmailView.
@@ -20,8 +24,34 @@ class UploadImageController extends Controller {
      */
     function processRequest() {
         $data = [];
+        $data['UPLOADED_FILE'] = $this->sanitize("imageFile", "file");
+        $data['UPLOADED_FILE_VALID'] = $this->validate("imageFile", "file");
+        $data['UPLOADED_CAPTION'] = $this->sanitize("imageCaption", "string");
+
+        //$fileName=$_FILES[" myimage "][ "name" ];
+        //$folder="../resources";
+        //move_uploaded_file($_FILES[" myimage "][" tmp_name "], "$folder".$_FILES[" myimage "][" name "]);
+
+        //$result = $this->user->storeImage($fileName, $caption, $timeUploaded);
+
+
+//$insert_path="INSERT INTO IMAGE VALUES('$folder','$upload_image')";
+//$var=mysql_query($inser_path);
+
 /*
-$target_dir = "uploads/";
+$select_path="select * from image_table";
+$var=mysql_query($select_path);
+while($row=mysql_fetch_array($var))
+{
+    $image_name=$row["imagename"];
+    $image_path=$row["imagepath"];
+    echo "img src=".$image_path."/".$image_name." width=100 height=100";
+}
+*/
+
+
+/*
+$target_dir = "resources/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -47,9 +77,9 @@ if ($_FILES["fileToUpload"]["size"] > 500000) {
     $uploadOk = 0;
 }
 // Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" ) {
-    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+if($imageFileType != "jpeg") {
+    echo "Sorry, only JPEG files are allowed.";
+    echo "the image type is " . $imageFileType;
     $uploadOk = 0;
 }
 // Check if $uploadOk is set to 0 by an error
@@ -57,11 +87,14 @@ if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
 } else {
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+}
 */
-        if(isset($_REQUEST['upload'])) {
-            $data['UPLOADED_FILE'] = $this->sanitize("imageFile", "file");
-            $data['UPLOADED_FILE_VALID'] = $this->validate("imageFile", "file");
-        }
+
         $this->view("uploadImage")->render($data);
     }
 }
