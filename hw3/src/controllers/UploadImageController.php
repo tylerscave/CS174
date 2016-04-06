@@ -24,9 +24,32 @@ class UploadImageController extends Controller {
      */
     function processRequest() {
         $data = [];
+/*
         $data['UPLOADED_FILE'] = $this->sanitize("imageFile", "file");
-        $data['UPLOADED_FILE_VALID'] = $this->validate("imageFile", "file");
+        $data['UPLOADED_FILE_VALID'] = $this->validate($data['UPLOADED_FILE'], "file");
         $data['UPLOADED_CAPTION'] = $this->sanitize("imageCaption", "string");
+//do all of the $_FILES stuff in Controller->sanitize
+
+//move_uploaded_file ($_FILES['uploadFile'] ['tmp_name'], "../resources/{$_FILES['uploadFile'] ['name']}");
+$valid_format = "jpeg";
+$dir = "../resources/";
+        if($data['UPLOADED_FILE_VALID']) {
+            $uniq = base_convert(uniqid(), 16, 10);
+$tmp = tempnam(sys_get_temp_dir(), $data['UPLOADED_FILE']);
+            //$tmp = $_FILES['file']['tmp_name'];
+            $uniq_file_name = $uniq.".".$valid_format;
+            if(move_uploaded_file($tmp, $dir.$uniq_file_name)) {
+
+
+
+                //$image_query = "INSERT INTO files (id, file) VALUES (null, '{$uniq_file_name}')";
+                //$success = ($this->conn->query($image_query) or die(mysqli_connect_errno() . "Data cannot inserted"))
+                $msg = "Uploading successful!";
+            } else {
+                $msg = "Problem while moving file";
+            }
+        }
+
 
         //$fileName=$_FILES[" myimage "][ "name" ];
         //$folder="../resources";
@@ -95,6 +118,72 @@ if ($uploadOk == 0) {
 }
 */
 
+
+
+// settings
+$max_file_size = 1024*1024; //1mb
+$valid_ext = 'jpeg';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_FILES['imageFile'])) {
+  if( $_FILES['imageFile']['size'] < $max_file_size ){
+    // get file extension
+    $ext = strtolower(pathinfo($_FILES['imageFile']['name'], PATHINFO_EXTENSION));
+    if($ext == $valid_ext) {
+echo "the ext is = " . $ext . "<br>";
+$sizeData = getimagesize($_FILES['imageFile']['tmp_name']);
+$width = $sizeData[0];
+    $file = $this->resize();
+echo "the file is = " . $file . "<br>";
+    } else {
+      $msg = 'Unsupported file';
+    }
+  } else{
+    $msg = 'Please upload image smaller than 200KB';
+  }
+if(isset($msg)){echo "the message is = " . $msg;}
+}
+
+
         $this->view("uploadImage")->render($data);
     }
+
+
+
+function resize(){
+$targetDir = realpath(dirname(__FILE__)) . '/../resources/images';
+  /* Get original image x y*/
+  list($w, $h) = getimagesize($_FILES['imageFile']['tmp_name']);
+
+//calculate new image height to preserve ratio
+$newWidth = 500;
+$newHeight = ($h/$w) * $newWidth;
+
+
+if(!is_dir($targetDir)) {
+mkdir($targetDir, 0777, true);
+}
+  /* new file name */
+  $path = $targetDir . '/' . $newWidth.'x'.$newHeight.'_'.$_FILES['imageFile']['name'];
+
+
+
+
+echo "the path is = " . $path . "<br>";
+  /* read binary data from image file */
+  $imgString = file_get_contents($_FILES['imageFile']['tmp_name']);
+  /* create image from string */
+  $image = imagecreatefromstring($imgString);
+  $tmp = imagecreatetruecolor($newWidth, $newHeight);
+  imagecopyresampled($tmp, $image, 0, 0, 0, 0, $newWidth, $newHeight, $w, $h);
+  /* Save image */
+  if($_FILES['imageFile']['type'] == 'image/jpeg') {
+      imagejpeg($tmp, $path, 100);
+  }
+  return $path;
+  /* cleanup memory */
+  imagedestroy($image);
+  imagedestroy($tmp);
+}
+
+
 }

@@ -31,7 +31,9 @@ class CreateAccountController extends Controller {
         $data['CREATE_EMAIL_VALID'] = $this->validate($data['CREATE_EMAIL'], "email");
         $data['CREATE_PASSWORD'] = $this->sanitize("createPassword", "string");
         $data['CONFIRM_PASSWORD'] = $this->sanitize("confirmPassword", "string");
-        if(isset($data['CREATE_EMAIL_VALID']) && isset($data['CREATE_USERNAME']) && ($data['CREATE_PASSWORD'] == $data['CONFIRM_PASSWORD'])) {
+
+        if(isset($data['CREATE_EMAIL_VALID']) && isset($data['CREATE_USERNAME']) && 
+                ($data['CREATE_PASSWORD'] == $data['CONFIRM_PASSWORD'])) {
             $result = $this->user->createUser($data['CREATE_USERNAME'], $data['CREATE_EMAIL_VALID'], $data['CREATE_PASSWORD']);
             if($result) {
                 $id = $this->user->checkLogin($data['CREATE_EMAIL_VALID'], $data['CREATE_PASSWORD']);

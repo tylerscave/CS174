@@ -41,10 +41,14 @@ abstract class Controller {
                 }
                 break;
             case "file":
-                $out = filter_input(INPUT_GET, $request_field);
-                if($out == false) {
-                    $out = filter_input(INPUT_POST, $request_field);
+/*
+                $temp_out = filter_input(INPUT_GET, $request_field);
+                if($temp_out == false) {
+                    $temp_out = filter_input(INPUT_POST, $request_field);
                 }
+*/
+                $temp_out = $_FILES(['file']['name']);
+                $out = imagecreatefromjpeg($temp_out);
                 break;
             default:
                 $out = "";
@@ -69,9 +73,26 @@ abstract class Controller {
                 $valid = filter_var($variable, FILTER_VALIDATE_URL);
                 break;
             case "file":
+//$image = imagecreatefromjpeg($_FILES['image']['tmp_name']);
+/*
+$valid_format = "jpeg";
+$max_file_size = 1024*1024*1024;
+$dir = "../resources/";
+
+$size = getimagesize($variable);
+$ext = pathinfo($variable, PATHINFO_EXTENSION);
+    if($ext == $valid_format) {
+        //if($_FILES['file']['size'] < $max_file_size) {
+        if($size < $max_file_size) {
+            $valid = true;
+        }
+    } else {
+        $valid = false;
+    }
+*/
                 //simple extension check here. Will check again when uploaded
-                $parts = (pathinfo($_GET[$variable]));
-                $valid = ($parts['extension'] == "jpeg");
+                //$parts = (pathinfo($_GET[$variable]));
+                //$valid = ($parts['extension'] == "jpeg");
                 break;
             default:
                 $valid = false;

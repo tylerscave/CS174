@@ -26,7 +26,7 @@ if($conn->query($sql) === TRUE) {
 $conn->select_db(DB);
 //Create the USER table
 $tbl = "CREATE TABLE USER(
-    id INT(6) AUTO_INCREMENT PRIMARY KEY,
+    id INT(6) AUTO_INCREMENT PRIMARY KEY NOT NULL,
     userName VARCHAR(20) UNIQUE NOT NULL,
     email VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(32) NOT NULL)";
@@ -39,11 +39,22 @@ $conn->query("ALTER TABLE USER AUTO_INCREMENT = 100000");
 
 //Create the IMAGE table
 $tbl = "CREATE TABLE IMAGE(
-    id INT(6) PRIMARY KEY,
-    fileName VARCHAR(30),
+    imageID INT(6) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    id INT(6) NOT NULL,
     caption VARCHAR(100),
-    rating INT(1),
     timeUploaded TIMESTAMP)";
+if ($conn->query($tbl) === TRUE) {
+    echo "Table IMAGE created successfully \n";
+} else {
+    echo "Error creating table: " . $conn->error . "\n";
+}
+$conn->query("ALTER TABLE IMAGE AUTO_INCREMENT = 500000");
+
+//Create the RATING table
+$tbl = "CREATE TABLE RATING(
+    imageID INT(6) PRIMARY KEY,
+    id INT(6),
+    rating INT(1))";
 if ($conn->query($tbl) === TRUE) {
     echo "Table IMAGE created successfully \n";
 } else {

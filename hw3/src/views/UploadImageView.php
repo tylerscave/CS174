@@ -26,7 +26,7 @@ class UploadImageView extends View {
             </head>
             <body>
                 <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
-                <form class="centered" id="fileUploadForm" enctype="multipart/form-data">
+                <form class="centered" id="fileUploadForm" method ="post" enctype="multipart/form-data">
                     <label for="fileUpload">Select a File to Upload:</label>
                     <input id="fileUpload" type="file" name="imageFile"><br>
                     <label for="captionUpload">Add a caption to your image:</label>

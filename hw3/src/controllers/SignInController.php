@@ -28,6 +28,7 @@ class SignInController extends Controller {
         $data['LOGIN_EMAIL'] = $this->sanitize("loginEmail", "email");
         $data['LOGIN_EMAIL_VALID'] = $this->validate($data['LOGIN_EMAIL'], "email");
         $data['LOGIN_PASSWORD'] = $this->sanitize("loginPassword", "string");
+
         if (isset($data['LOGIN_EMAIL_VALID']) && isset($data['LOGIN_PASSWORD'])) {
             $id = $this->user->checkLogin($data['LOGIN_EMAIL_VALID'], $data['LOGIN_PASSWORD']);
             if (isset($id)) {
