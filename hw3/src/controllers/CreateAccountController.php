@@ -34,7 +34,8 @@ class CreateAccountController extends Controller {
 
         if(isset($data['CREATE_EMAIL_VALID']) && isset($data['CREATE_USERNAME']) && 
                 ($data['CREATE_PASSWORD'] == $data['CONFIRM_PASSWORD'])) {
-            $result = $this->user->createUser($data['CREATE_USERNAME'], $data['CREATE_EMAIL_VALID'], $data['CREATE_PASSWORD']);
+            $result = $this->user->createUser($data['CREATE_USERNAME'], $data['CREATE_EMAIL_VALID'],
+                    $data['CREATE_PASSWORD']);
             if($result) {
                 $id = $this->user->checkLogin($data['CREATE_EMAIL_VALID'], $data['CREATE_PASSWORD']);
                 if (isset($id)) {

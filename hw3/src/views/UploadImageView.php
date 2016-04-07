@@ -44,7 +44,7 @@ class UploadImageView extends View {
                         <p>You did not select a valid file. Please try again.</p>
                     <?php
                     }
-                    if(isset($data['UPLOADED_FILE_VALID']) && $data['UPLOADED_FILE_VALID'] == true) {
+                    if(isset($data['UPLOAD_SUCCESS']) && $data['UPLOAD_SUCCESS'] == true) {
                     ?>
                         <p>The uploaded file is a valid JPEG file and was successfully uploaded!</p>
                     <?php
