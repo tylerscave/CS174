@@ -42,7 +42,6 @@ abstract class Controller {
                 break;
             case "file":
                 $out = $_FILES[$request_field]['name'];
-                //$out = imagecreatefromjpeg($temp_out);
                 break;
             default:
                 $out = "";

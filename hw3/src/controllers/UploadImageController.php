@@ -7,96 +7,87 @@
 */
 namespace soloRider\hw3\controllers;
 use soloRider\hw3\models as B;
-//require_once(realpath(dirname(__FILE__) . '/../models/ImageModel.php'));
+require_once(realpath(dirname(__FILE__) . '/../models/ImageModel.php'));
 require_once "Controller.php";
 
 class UploadImageController extends Controller {
-    private $user;
+    private $imageModel;
 
     public function __construct() {
-        //$this->user = new B\ImageModel();
+        $this->imageModel = new B\ImageModel();
     }
 
     /**
-     * Used to handle form data coming from EmailView.
-     * Should sanitize that data and check if the email within it was
-     * valid.
+     * processRequest is used to handle form data coming from UploadImageView.
+     * It will sanitize and validate the file and the caption. The file must be a
+     * valid jpeg file under 1mb to validate
      */
     function processRequest() {
         $data = [];
         if(isset($_FILES['imageFile'])) {
             $data['UPLOADED_FILE'] = $this->sanitize("imageFile", "file");
             $data['UPLOADED_FILE_VALID'] = $this->validate($data['UPLOADED_FILE'], "file");
-            if($data['UPLOADED_FILE_VALID']) {
-                $file = $this->resize();
-            }
             $data['UPLOADED_CAPTION'] = $this->sanitize("imageCaption", "string");
+            if($data['UPLOADED_FILE_VALID']) {
+                $file = $this->prepareToStore($data['UPLOADED_CAPTION'], $_SESSION['ID']);
+                if(isset($file)) {
+                    $data['UPLOAD_SUCCESS'] = true;
+                } else {
+                    $data['UPLOAD_SUCCESS'] = false;
+                }
+            }
         }
-
-
-/*
-// settings
-$max_file_size = 1024*1024; //1mb
-$valid_ext = 'jpeg';
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_FILES['imageFile'])) {
-  if( $_FILES['imageFile']['size'] < $max_file_size ){
-    // get file extension
-    $ext = strtolower(pathinfo($_FILES['imageFile']['name'], PATHINFO_EXTENSION));
-    if($ext == $valid_ext) {
-echo "the ext is = " . $ext . "<br>";
-        $sizeData = getimagesize($_FILES['imageFile']['tmp_name']);
-        $width = $sizeData[0];
-        $file = $this->resize();
-echo "the file is = " . $file . "<br>";
-    } else {
-      $msg = 'Unsupported file';
-    }
-  } else{
-    $msg = 'Please upload image smaller than 200KB';
-  }
-if(isset($msg)){echo "the message is = " . $msg;}
-}
-*/
         $this->view("uploadImage")->render($data);
     }
 
-
-
-    function resize(){
+    /**
+     * prepareToStore resizes the selected image and looks at exif data to orient it correctly.
+     * It then calls storeImageData in the ImageModel class to store data to database. If the
+     * database processing succeeds, the image is stored in the resources folder
+     */
+    function prepareToStore($caption, $sessionID) {
         $targetDir = realpath(dirname(__FILE__)) . '/../resources/images';
         //create new directory for images if one does not already exist
         if(!is_dir($targetDir)) {
             mkdir($targetDir, 0777, true);
         }
-
-        //Get original image width and height
-        list($w, $h) = getimagesize($_FILES['imageFile']['tmp_name']);
-
         //calculate new image height to preserve ratio
+        list($w, $h) = getimagesize($_FILES['imageFile']['tmp_name']);
         $newWidth = 500;
         $newHeight = ($h/$w) * $newWidth;
-
-
         //new filename for uploaded file
-        $path = $targetDir . '/' . $newWidth.'x'.$newHeight.'_'.$_FILES['imageFile']['name'];
-echo "the path is = " . $path . "<br>";
-
+        $uniq = uniqid();
+        $fileName = $_FILES['imageFile']['name'];
+        $newFileName = $targetDir . '/' . $uniq . '_' . $fileName;
+        $simpleNewFileName = $uniq . '_' . $fileName;
         //read binary data from image file
         $imgString = file_get_contents($_FILES['imageFile']['tmp_name']);
         //create image from string
         $image = imagecreatefromstring($imgString);
+        $exif = exif_read_data($_FILES['imageFile']['tmp_name']);
+        if(!empty($exif['Orientation'])) {
+            switch($exif['Orientation']) {
+                case 8:
+                    $image = imagerotate($image,90,0);
+                    break;
+                case 3:
+                    $image = imagerotate($image,180,0);
+                    break;
+                case 6:
+                    $image = imagerotate($image,-90,0);
+                    break;
+            }
+        }
         $tmp = imagecreatetruecolor($newWidth, $newHeight);
         imagecopyresampled($tmp, $image, 0, 0, 0, 0, $newWidth, $newHeight, $w, $h);
-        //Save image if correct type
-        if($_FILES['imageFile']['type'] == 'image/jpeg') {
-            $data['UPLOAD_SUCCESS'] = imagejpeg($tmp, $path, 100);
+        //Save image
+        $success = $this->imageModel->storeImageData($simpleNewFileName, $sessionID, $caption);
+        if($success) {
+            imagejpeg($tmp, $newFileName, 100);
         }
-        return $path;
-        /* cleanup memory */
+        return $newFileName;
+        //cleanup
         imagedestroy($image);
         imagedestroy($tmp);
     }
-
-
 }

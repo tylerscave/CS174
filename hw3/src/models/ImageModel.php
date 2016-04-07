@@ -12,17 +12,17 @@ class ImageModel extends Model {
     private $conn;
 
     public function __construct() {
-        $this->conn = this->connectToDB();
+        $this->conn = $this->connectToDB();
     }
 
-    public function storeImage($fileName, $caption, $timeUploaded) {
-        $file_query = "SELECT * FROM IMAGE WHERE fileName='$fileName' AND id='$_SESSION['ID']'";
+    public function storeImageData($fileName, $id, $caption) {
+        $file_query = "SELECT * FROM IMAGE WHERE fileName='$fileName' AND id='$id'";
         //checking user already uploaded this file
         $check =  $this->conn->query($file_query) ;
         $rowCount = $check->num_rows;
         //if the file is not in the table, add it
         if ($rowCount == 0){
-            $sql = "INSERT INTO IMAGE SET fileName='$fileName', caption='$caption', timeUploaded='$timeUploaded";
+            $sql = "INSERT INTO IMAGE SET fileName='$fileName', id='$id', caption='$caption'";
             $success = ($this->conn->query($sql) or die(mysqli_connect_errno() . "Data cannot inserted"));
             return $success;
         } else {

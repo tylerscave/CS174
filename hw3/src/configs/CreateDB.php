@@ -39,7 +39,7 @@ $conn->query("ALTER TABLE USER AUTO_INCREMENT = 100000");
 
 //Create the IMAGE table
 $tbl = "CREATE TABLE IMAGE(
-    imageID INT(6) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    fileName VARCHAR(50) PRIMARY KEY NOT NULL,
     id INT(6) NOT NULL,
     caption VARCHAR(100),
     timeUploaded TIMESTAMP)";
@@ -52,8 +52,8 @@ $conn->query("ALTER TABLE IMAGE AUTO_INCREMENT = 500000");
 
 //Create the RATING table
 $tbl = "CREATE TABLE RATING(
-    imageID INT(6) PRIMARY KEY,
-    id INT(6),
+    fileName VARCHAR(50) PRIMARY KEY NOT NULL,
+    id INT(6) NOT NULL,
     rating INT(1))";
 if ($conn->query($tbl) === TRUE) {
     echo "Table IMAGE created successfully \n";
