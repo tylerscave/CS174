@@ -4,13 +4,15 @@
  * Solves CS174 Hw3
  * @author Tyler Jones
 */
+body {
+    background-color:black;
+}
 h1 {
-    /*text-align:center;*/
+    background-color:black;
 }
 .centered {
-    left-margin:0, auto;
-    right-margin:0, auto;
     text-align:center;
+    color:white;
 }
 .buttonLink {
     display:inline-block;
@@ -31,10 +33,18 @@ h1 {
     border-color:gray;
     background-color:yellow;
 }
+.section {
+    text-align:center;
+    border-style:solid;
+    border-color:white;
+    background-color:gray;
+    margin-top:5em;
+}
 .framed {
     display:inline-block;
     text-align:center;
     border-style:solid;
-    margin:2em;
+    background-color:white;
+    margin:1em;
 }
 

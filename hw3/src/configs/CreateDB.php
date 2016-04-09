@@ -53,10 +53,20 @@ $conn->query("ALTER TABLE IMAGE AUTO_INCREMENT = 500000");
 //Create the RATING table
 $tbl = "CREATE TABLE RATING(
     fileName VARCHAR(50) NOT NULL,
-    id INT(6) NOT NULL,
-    rating INT(1))";
+    totalVotes INT(5),
+    totalRating INT(10))";
 if ($conn->query($tbl) === TRUE) {
-    echo "Table IMAGE created successfully \n";
+    echo "Table RATING created successfully \n";
+} else {
+    echo "Error creating table: " . $conn->error . "\n";
+}
+
+//Create the VOTES table
+$tbl = "CREATE TABLE VOTES(
+    id INT(6) NOT NULL,
+    fileName VARCHAR(50) NOT NULL)";
+if ($conn->query($tbl) === TRUE) {
+    echo "Table VOTES created successfully \n";
 } else {
     echo "Error creating table: " . $conn->error . "\n";
 }

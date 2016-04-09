@@ -43,11 +43,10 @@ class ImageModel extends Model {
             $fileName = $row['fileName'];
             $row['timeUploaded'] = date('M j Y g:i A', strtotime($row['timeUploaded']));
             $row['userName'] =$this->user->getUserName($id);
-            $rating_query = "SELECT AVG(rating) average FROM RATING WHERE fileName='$fileName'";
+            $rating_query = "SELECT totalRating, totalVotes FROM RATING WHERE fileName='$fileName'";
             $rating_result = $this->conn->query($rating_query);
-            $obj = $rating_result->fetch_object();
-            if(isset($obj) && $obj->average > 0) {
-                $row['rating'] = round($obj->average);
+            if($obj = $rating_result->fetch_object()) {
+                $row['rating'] = round(($obj->totalRating) / ($obj->totalVotes));
             } else {
                 $row['rating'] = "Not rated yet, be the first!";
             }
@@ -57,15 +56,48 @@ class ImageModel extends Model {
     }
 
     public function getPopularImages() {
-        $popular_query = "SELECT * FROM IMAGE ORDER BY rating DESC, timeUploaded DESC LIMIT 10";
-        $result = $this->conn->query($popular_query);
-        while($row = $result->fetch_assoc()) {
-            $rows[] = $row;
+        $rows = [];
+        $popular_query = "SELECT * FROM RATING ORDER BY totalRating/totalVotes DESC LIMIT 10";
+        $rating_result1 = $this->conn->query($popular_query);
+        while($rating_row = $rating_result1->fetch_assoc()) {
+            $fileName_query = $rating_row['fileName'];
+            $image_query = "SELECT * FROM IMAGE WHERE fileName = '$fileName_query'";
+            $image_result = $this->conn->query($image_query);
+            if($row = $image_result->fetch_assoc()) {
+                $id = $row['id'];
+                $fileName = $row['fileName'];
+                $row['timeUploaded'] = date('M j Y g:i A', strtotime($row['timeUploaded']));
+                $row['userName'] =$this->user->getUserName($id);
+                $rating_query = "SELECT totalRating, totalVotes FROM RATING WHERE fileName='$fileName'";
+                $rating_result = $this->conn->query($rating_query);
+                if($obj = $rating_result->fetch_object()) {
+                    $row['rating'] = round(($obj->totalRating) / ($obj->totalVotes));
+                } else {
+                    $row['rating'] = "Not rated yet, be the first!";
+                }
+                $rows[] = $row;
+            }
+        }
+        foreach($rows as $key => $val) {
+            if(isset($rows[$key+1])) {
+                if(($rows[$key]['rating'] == $rows[$key+1]['rating']) &&
+                        ($rows[$key]['timeUploaded'] < $rows[$key+1]['timeUploaded'])) {
+                    $tmp = $rows[$key];
+                    $rows[$key] = $rows[$key+1];
+                    $rows[$key+1] = $tmp;
+                }
+            }
         }
         return $rows;
     }
 
     public function setRating($id, $fileName, $rating) {
+
+//UPDATE RATING SET totalRating = totalRating + $rating WHERE fileName = $fileName
+
+    }
+
+    public function checkVotes($id, $fileName) {
 
     }
 

@@ -6,9 +6,16 @@
  * @author Tyler Jones
 */
 namespace soloRider\hw3\views;
+use soloRider\hw3\views\helpers as B;
+require_once(realpath(dirname(__FILE__) . '/helpers/ImagesHelper.php'));
 require_once "View.php";
 
 class ImageRatingView extends View {
+    private $imagesHelper;
+
+    public function __construct() {
+        $this->imagesHelper = new B\ImagesHelper();
+    }
 
     /**
      * Draw the web page to the browser
@@ -46,38 +53,17 @@ class ImageRatingView extends View {
                 <?php
                 }
                 ?>
-                <div class="recent">
+                <div class="section">
                     <h2 class="centered"><img src="./src/resources/recentLogo.png" alt="Recent" /></h1>
-<?php
-for ($i = 0; $i < sizeof($data); $i++) {
-?>
-                    <div class="framed">
-                        <p><img src="./src/resources/images/<?=$data[$i]['FILE'] ?>" alt="image" /></p>
-                        <p>Caption: <?=$data[$i]['CAPTION'] ?></p>
-                        <p>Uploaded by: <?=$data[$i]['USERNAME'] ?></p>
-                        <p>Uploaded: <?=$data[$i]['DATE'] ?></p>
-                        <p>Rating: <?=$data[$i]['RATING'] ?></p>
-                        <?php 
-                        if(isset($_SESSION['ID'])) {
-                        ?>
-                            <label for="ratingDrop">Rate this image </lable>
-                            <select name="ratingDrop">
-                                <option value="5">5</option>
-                                <option value="4">4</option>
-                                <option value="3">3</option>
-                                <option value="2">2</option>
-                                <option value="1">1</option>
-                            </select>
-                        <?php
-                        }
-                        ?>
-                    </div>
-<?php
-}
-?>
+                    <?php
+                    $this->imagesHelper->getImages("recents");
+                    ?>
                 </div>
-                <div class="popularity">
+                <div class="section">
                     <h2 class="centered"><img src="./src/resources/popularityLogo.png" alt="Popularity" /></h1>
+                    <?php
+                    $this->imagesHelper->getImages("popularity");
+                    ?>
                 </div>
             </body>
         </html>
