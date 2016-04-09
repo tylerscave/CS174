@@ -66,7 +66,7 @@ abstract class Controller {
                 $valid = filter_var($variable, FILTER_VALIDATE_URL);
                 break;
             case "file":
-                $max_file_size = 1024*1024; //1mb
+                $max_file_size = 1024*1024*2; //2mb
                 $valid_ext = 'jpeg';
                 if ($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_FILES['imageFile'])) {
                     if($_FILES['imageFile']['size'] < $max_file_size ) {

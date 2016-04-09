@@ -28,14 +28,14 @@ class CreateAccountView extends View {
                 <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
                 <p class="centered">Create a new account for Image Rating</p>
                 <form class="centered" id="createAccountForm" method="post">
-                    <label for="userNameField">Username:</label>
-                    <input id="userNameField" type="text" name="createUserName"><br>
-                    <label for="emailField">Email:</label>
-                    <input id="emailField" type="text" name="createEmail"><br>
-                    <label for="passwordField">Password:</label>
-                    <input id="passwordField" type="password" name="createPassword"><br>
-                    <label for="confirmPasswordField">Confirm Password:</label>
-                    <input id="confirmPasswordField" type="password" name="confirmPassword"><br>
+                    <p><label for="userNameField">Username:</label>
+                    <input id="userNameField" type="text" name="createUserName"></p>
+                    <p><label for="emailField">Email:</label>
+                    <input id="emailField" type="text" name="createEmail"></p>
+                    <p><label for="passwordField">Password:</label>
+                    <input id="passwordField" type="password" name="createPassword"></p>
+                    <p><label for="confirmPasswordField">Confirm Password:</label>
+                    <input id="confirmPasswordField" type="password" name="confirmPassword"></p>
                     <input type="submit" name="submitCreateAccount" value="Submit">
                 </form>
                 <?php 

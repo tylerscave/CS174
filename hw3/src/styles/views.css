@@ -31,4 +31,10 @@ h1 {
     border-color:gray;
     background-color:yellow;
 }
+.framed {
+    display:inline-block;
+    text-align:center;
+    border-style:solid;
+    margin:2em;
+}
 

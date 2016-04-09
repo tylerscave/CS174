@@ -28,16 +28,15 @@ class SignInView extends View {
                 <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
                 <p class="centered">Sign In form for Image Rating</p>
                 <form class="centered" id="loginForm" method="post">
-                    <label for="emailField">Email:</label>
-                    <input id="emailField" type="text" name="loginEmail"><br>
-                    <label for="passwordField">Password:</label>
-                    <input id="passwordField" type="password" name="loginPassword"><br>
+                    <p><label for="emailField">Email:</label>
+                    <input id="emailField" type="text" name="loginEmail"></p>
+                    <p><label for="passwordField">Password:</label>
+                    <input id="passwordField" type="password" name="loginPassword"></p>
                     <input type="submit" name="login" value="Login">
                 </form>
-
                 <form class="centered" method="post" action="index.php">
-                    <label for="createAccountLink">Don't have an account yet?</label>
-                    <input type="submit" id="createAccountLink" name="createAccount" value="Create Account">
+                    <p><label for="createAccountLink">Don't have an account yet?</label>
+                    <input type="submit" id="createAccountLink" name="createAccount" value="Create Account"></p>
                 </form>
                 <?php
                 if(isset($data['LOGIN_FAIL'])) {

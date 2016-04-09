@@ -27,7 +27,8 @@ class ImageRatingView extends View {
             </head>
             <body>
                 <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
-                <?php if(isset($_SESSION['ID'])) {
+                <?php 
+                if(isset($_SESSION['ID'])) {
                 ?>
                     <form method="post" action="index.php">
                         <input type="submit" class="buttonLink" name="logout" value="Log Out"/>
@@ -47,7 +48,33 @@ class ImageRatingView extends View {
                 ?>
                 <div class="recent">
                     <h2 class="centered"><img src="./src/resources/recentLogo.png" alt="Recent" /></h1>
-                    a bunch<br> more stuff<br>
+<?php
+for ($i = 0; $i < sizeof($data); $i++) {
+?>
+                    <div class="framed">
+                        <p><img src="./src/resources/images/<?=$data[$i]['FILE'] ?>" alt="image" /></p>
+                        <p>Caption: <?=$data[$i]['CAPTION'] ?></p>
+                        <p>Uploaded by: <?=$data[$i]['USERNAME'] ?></p>
+                        <p>Uploaded: <?=$data[$i]['DATE'] ?></p>
+                        <p>Rating: <?=$data[$i]['RATING'] ?></p>
+                        <?php 
+                        if(isset($_SESSION['ID'])) {
+                        ?>
+                            <label for="ratingDrop">Rate this image </lable>
+                            <select name="ratingDrop">
+                                <option value="5">5</option>
+                                <option value="4">4</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
+                            </select>
+                        <?php
+                        }
+                        ?>
+                    </div>
+<?php
+}
+?>
                 </div>
                 <div class="popularity">
                     <h2 class="centered"><img src="./src/resources/popularityLogo.png" alt="Popularity" /></h1>

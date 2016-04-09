@@ -52,7 +52,7 @@ $conn->query("ALTER TABLE IMAGE AUTO_INCREMENT = 500000");
 
 //Create the RATING table
 $tbl = "CREATE TABLE RATING(
-    fileName VARCHAR(50) PRIMARY KEY NOT NULL,
+    fileName VARCHAR(50) NOT NULL,
     id INT(6) NOT NULL,
     rating INT(1))";
 if ($conn->query($tbl) === TRUE) {
