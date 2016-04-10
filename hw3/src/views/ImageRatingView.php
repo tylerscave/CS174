@@ -35,7 +35,7 @@ class ImageRatingView extends View {
             <body>
                 <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
                 <?php 
-                if(isset($_SESSION['ID'])) {
+                if(isset($data['ID'])) {
                 ?>
                     <form method="post" action="index.php">
                         <input type="submit" class="buttonLink" name="logout" value="Log Out"/>
@@ -55,15 +55,14 @@ class ImageRatingView extends View {
                 ?>
                 <div class="section">
                     <h2 class="centered"><img src="./src/resources/recentLogo.png" alt="Recent" /></h1>
-<p><?=$_REQUEST['dropDown'] ?> </p>
                     <?php
-                    $this->imagesHelper->getImages("recents");
+                    $this->imagesHelper->getImages("recents", isset($data['ID']) ? $data['ID'] : null);
                     ?>
                 </div>
                 <div class="section">
                     <h2 class="centered"><img src="./src/resources/popularityLogo.png" alt="Popularity" /></h1>
                     <?php
-                    $this->imagesHelper->getImages("popularity");
+                    $this->imagesHelper->getImages("popularity", isset($data['ID']) ? $data['ID'] : null);
                     ?>
                 </div>
             </body>

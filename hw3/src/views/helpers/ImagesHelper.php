@@ -30,10 +30,10 @@ class ImagesHelper extends Helper {
                 <p>Uploaded: <?=$data[$i]['DATE'] ?></p>
                 <p>Rating: <?=$data[$i]['RATING'] ?></p>
                 <?php 
-                if(isset($_SESSION['ID'])) {
+                if(isset($_SESSION['ID']) && !($data[$i]['VOTED'])) {
                 ?>
                     <form name="dropDownForm" method="post">
-                        <label for="dropDownForm">Rate this image </lable>
+                        <p><label for="dropDownForm">Rate this image </lable>
                         <select name="dropDown">
                             <option value="<?=$data[$i]['FILE'] ?>:5">5</option>
                             <option value="<?=$data[$i]['FILE'] ?>:4">4</option>
@@ -41,8 +41,12 @@ class ImagesHelper extends Helper {
                             <option value="<?=$data[$i]['FILE'] ?>:2">2</option>
                             <option value="<?=$data[$i]['FILE'] ?>:1">1</option>
                         </select>
-                        <input type="submit" name="rateImage" value="Submit Rating">
+                        <input type="submit" name="rateImage" value="Submit Rating"></p>
                     </form>
+                <?php
+                } elseif(isset($_SESSION['ID'])) {
+                ?>
+                    <p>You've already rated this image </p>
                 <?php
                 }
                 ?>
@@ -51,7 +55,7 @@ class ImagesHelper extends Helper {
         }
     }
 
-    public function getImages($type) {
+    public function getImages($type, $id) {
         $data = [];
         if($type == "recents") {
             $images = $this->imageModel->getRecentImages();
@@ -61,11 +65,13 @@ class ImagesHelper extends Helper {
         $i = 0;
         foreach($images as $imageData) {
             $allImages = [];
-            $allImages['FILE'] = $imageData['fileName'];
+            $fileName = $imageData['fileName'];
+            $allImages['FILE'] = $fileName;
             $allImages['CAPTION'] = $imageData['caption'];
             $allImages['USERNAME'] = $imageData['userName'];
             $allImages['RATING'] = $imageData['rating'];
             $allImages['DATE'] = $imageData['timeUploaded'];
+            $allImages['VOTED'] = $this->imageModel->checkVotes($id, $fileName);
             $data[$i] = $allImages;
             $i++;
         }

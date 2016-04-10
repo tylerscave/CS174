@@ -31,14 +31,18 @@ class ImageRatingController extends Controller {
             $_SESSION['LOGIN'] = false;
         }
 
-if(isset($_REQUEST['rateImage'])) {
-    $rated = $_REQUEST['dropDown'];
-    $pieces = explode(":", $rated);
-    $fileName = $pieces[0];
-    $rating = $pieces[1];
-    $id = $_SESSION['ID'];
-    $this->imageModel->setRating($id, $fileName, $rating);
-}
+        if(isset($_SESSION['ID'])) {
+            $data['ID'] = $_SESSION['ID'];
+        }
+
+        if(isset($_REQUEST['rateImage'])) {
+            $rated = $_REQUEST['dropDown'];
+            $pieces = explode(":", $rated);
+            $fileName = $pieces[0];
+            $rating = $pieces[1];
+            $id = $_SESSION['ID'];
+            $this->imageModel->setRating($id, $fileName, $rating);
+        }
 
         $this->view("imageRating")->render($data);
     }
