@@ -32,14 +32,17 @@ class ImagesHelper extends Helper {
                 <?php 
                 if(isset($_SESSION['ID'])) {
                 ?>
-                    <label for="ratingDrop">Rate this image </lable>
-                    <select name="ratingDrop">
-                        <option value="5">5</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option value="1">1</option>
-                    </select>
+                    <form name="dropDownForm" method="post">
+                        <label for="dropDownForm">Rate this image </lable>
+                        <select name="dropDown">
+                            <option value="<?=$data[$i]['FILE'] ?>:5">5</option>
+                            <option value="<?=$data[$i]['FILE'] ?>:4">4</option>
+                            <option value="<?=$data[$i]['FILE'] ?>:3">3</option>
+                            <option value="<?=$data[$i]['FILE'] ?>:2">2</option>
+                            <option value="<?=$data[$i]['FILE'] ?>:1">1</option>
+                        </select>
+                        <input type="submit" name="rateImage" value="Submit Rating">
+                    </form>
                 <?php
                 }
                 ?>

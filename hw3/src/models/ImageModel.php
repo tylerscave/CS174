@@ -92,13 +92,33 @@ class ImageModel extends Model {
     }
 
     public function setRating($id, $fileName, $rating) {
-
-//UPDATE RATING SET totalRating = totalRating + $rating WHERE fileName = $fileName
-
+        $rating_query = "SELECT * FROM RATING WHERE fileName = '$fileName'";
+        //checking if the fileName already exists
+        $check =  $this->conn->query($rating_query) ;
+        $rowCount = $check->num_rows;
+        //if the fileName is not in the table, create new rating
+        if ($rowCount == 0) {
+            $rating_insert = "INSERT INTO RATING SET fileName='$fileName', totalRating='$rating', totalVotes=1"; 
+            $rating_success = ($this->conn->query($rating_insert) or 
+                                die(mysqli_connect_errno() . "Data cannot inserted"));
+        } else {
+            $rating_update = "UPDATE RATING SET totalRating=totalRating+'$rating', totalVotes=totalVotes+1 
+                        WHERE fileName='$fileName'";
+            $rating_success = ($this->conn->query($rating_update) or 
+                                die(mysqli_connect_errno() . "Data cannot inserted"));
+            $vote_insert = "INSERT INTO VOTES SET id='$id', fileName='$fileName'";
+            $vote_success = ($this->conn->query($vote_insert) or 
+                                die(mysqli_connect_errno() . "Data cannot inserted"));
+        }
+        if($rating_success && $vote_success) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function checkVotes($id, $fileName) {
-
+        $votes_query = "SELECT * FROM VOTES WHERE fileName = '$fileName'";
     }
 
 }

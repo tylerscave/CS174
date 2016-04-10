@@ -55,6 +55,7 @@ class ImageRatingView extends View {
                 ?>
                 <div class="section">
                     <h2 class="centered"><img src="./src/resources/recentLogo.png" alt="Recent" /></h1>
+<p><?=$_REQUEST['dropDown'] ?> </p>
                     <?php
                     $this->imagesHelper->getImages("recents");
                     ?>
