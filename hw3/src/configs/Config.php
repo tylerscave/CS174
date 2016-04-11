@@ -9,9 +9,8 @@
 */
 
 define ('DB', 'imageRating');
-define ('USER', 'lord_tyler');//ini_get("mysqli.default_user"));
-define ('PWD', '');//ini_get("mysqli.default_password"));
-define ('HOST', 'localhost');//ini_get("mysqli.default_host"));
+define ('USER', ini_get("mysqli.default_user"));
+define ('PWD', ini_get("mysqli.default_password"));
+define ('HOST', ini_get("mysqli.default_host"));
 define ('PORT', ini_get("mysqli.default_port"));
-
 
