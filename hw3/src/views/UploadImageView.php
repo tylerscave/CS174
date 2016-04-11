@@ -6,9 +6,20 @@
  * @author Tyler Jones
 */
 namespace soloRider\hw3\views;
+use soloRider\hw3\views\elements as E;
+require_once(realpath(dirname(__FILE__) . '/elements/LogoutElement.php'));
 require_once "View.php";
 
 class UploadImageView extends View {
+    private $logoutElement;
+
+    /**
+     * Constructor for UploadImageView is used to instanciate 
+     * a LogoutElement object
+     */
+    public function __construct() {
+        $this->logoutElement = new E\LogoutElement();
+    }
     /**
      * Draw the web page to the browser
      */
@@ -17,21 +28,24 @@ class UploadImageView extends View {
         <!DOCTYPE html>
         <html lang="en">
             <head>
-                <title>Image Rating Upload</title>
+                <title>Image Rating Upload Image</title>
                 <link href="./src/resources/favicon.ico" rel="shortcut icon" type="image/x-icon" />
                 <link rel="stylesheet" href="./src/styles/views.css" type="text/css"/>
                 <meta charset="utf-8"/>
                 <meta name="author" content="Tyler Jones"/>
-                <meta name="description" content="Upload page for the Image Rating System"/>
+                <meta name="description" content="Upload Image page for the Image Rating System"/>
             </head>
             <body>
-                <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
-                <form class="centered" id="fileUploadForm" method ="post" enctype="multipart/form-data">
+                <h1><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
+                <?php 
+                $this->logoutElement->render($data);
+                ?>
+                <form class="centered" id="fileUploadForm" method ="post" enctype="multipart/form-data" action="index.php">
                     <p><label for="fileUpload">Select a File to Upload:</label>
                     <input id="fileUpload" type="file" name="imageFile"></p>
                     <p><label for="captionUpload">Add a caption to your image:</label>
                     <input id="captionUpload" type="text" name="imageCaption" maxlength="100"></p>
-                    <p><input type="submit" name="upload" value="UPLOAD"></p>
+                    <p><input type="submit" name="uploadImage" value="UPLOAD"></p>
                 </form>
                 <div class="centered">
                     <?php
@@ -44,7 +58,7 @@ class UploadImageView extends View {
                         <p>You did not select a valid file. Please try again.</p>
                     <?php
                     }
-                    if(isset($data['UPLOAD_SUCCESS']) && $data['UPLOAD_SUCCESS'] == true) {
+                    if(isset($data['UPLOAD_SUCCESS']) && ($data['UPLOAD_SUCCESS'])) {
                     ?>
                         <p>The uploaded file is a valid JPEG file and was successfully uploaded!</p>
                     <?php

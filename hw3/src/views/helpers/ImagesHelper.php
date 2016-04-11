@@ -2,7 +2,7 @@
 /**
  *COPYRIGHT (C) 2016 Tyler Jones. All Rights Reserved.
  * ImagesHelper.php is the helper to dynamically display images and attributes
- * for the recents and popularity section
+ * for the recents and popularity section of the Image Rating System
  * Solves CS174 Hw3
  * @author Tyler Jones
 */
@@ -13,6 +13,10 @@ require_once "Helper.php";
 class ImagesHelper extends Helper {
     private $imageModel;
 
+    /**
+     * Constructor for ImagesHelper is used to instanciate 
+     * a ImageModel object
+     */
     public function __construct() {
         $this->imageModel = new B\ImageModel();
     }
@@ -55,13 +59,21 @@ class ImagesHelper extends Helper {
         }
     }
 
+    /**
+     * getImages is used to create session data for the stored
+     * images and their attributes. This data is used to render
+     * the images to the screen
+     */
     public function getImages($type, $id) {
         $data = [];
+        //determine if the request is for the recents or popularity section
         if($type == "recents") {
             $images = $this->imageModel->getRecentImages();
         } elseif($type == "popularity") {
             $images = $this->imageModel->getPopularImages();
         }
+        
+        //store stored data in the data array for use in this session
         $i = 0;
         foreach($images as $imageData) {
             $allImages = [];
@@ -75,6 +87,7 @@ class ImagesHelper extends Helper {
             $data[$i] = $allImages;
             $i++;
         }
+        // render the images to the correct view
         $this->render($data);
     }
 }

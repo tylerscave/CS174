@@ -42,7 +42,7 @@ $tbl = "CREATE TABLE IMAGE(
     fileName VARCHAR(50) PRIMARY KEY NOT NULL,
     id INT(6) NOT NULL,
     caption VARCHAR(100),
-    timeUploaded TIMESTAMP)";
+    timeUploaded TIMESTAMP NOT NULL)";
 if ($conn->query($tbl) === TRUE) {
     echo "Table IMAGE created successfully \n";
 } else {
@@ -52,7 +52,7 @@ $conn->query("ALTER TABLE IMAGE AUTO_INCREMENT = 500000");
 
 //Create the RATING table
 $tbl = "CREATE TABLE RATING(
-    fileName VARCHAR(50) NOT NULL,
+    fileName VARCHAR(50) PRIMARY KEY NOT NULL,
     totalVotes INT(5),
     totalRating INT(10))";
 if ($conn->query($tbl) === TRUE) {
@@ -64,7 +64,8 @@ if ($conn->query($tbl) === TRUE) {
 //Create the VOTES table
 $tbl = "CREATE TABLE VOTES(
     id INT(6) NOT NULL,
-    fileName VARCHAR(50) NOT NULL)";
+    fileName VARCHAR(50) NOT NULL,
+    CONSTRAINT vote PRIMARY KEY (id, fileName))";
 if ($conn->query($tbl) === TRUE) {
     echo "Table VOTES created successfully \n";
 } else {

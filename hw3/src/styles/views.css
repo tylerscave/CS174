@@ -5,46 +5,53 @@
  * @author Tyler Jones
 */
 body {
-    background-color:black;
+    background:black;
 }
+
 h1 {
-    background-color:black;
-}
-.centered {
+    background:black;
     text-align:center;
-    color:white;
 }
+
 .buttonLink {
-    display:inline-block;
-    height:3em;
-    width:8em;
-    float:right;
-    text-decoration: underline;
+    background:yellow;
     border-style:dashed;
-    background-color:yellow;
     cursor: pointer;
-}
-.signedIn {
     display:inline-block;
-    width:6em;
-    text-align:center;
     float:right;
-    border-style:dashed;
-    border-color:gray;
-    background-color:yellow;
+    height:3em;
+    text-decoration:underline;
+    width:8em;
 }
-.section {
+
+.centered {
+    color:white;
     text-align:center;
-    border-style:solid;
-    border-color:white;
-    background-color:gray;
-    margin-top:5em;
 }
+
 .framed {
-    display:inline-block;
-    text-align:center;
+    background:white;
     border-style:solid;
-    background-color:white;
+    display:inline-block;
     margin:1em;
+    text-align:center;
+}
+
+.section {
+    background:gray;
+    border-color:white;
+    border-style:solid;
+    margin-top:5em;
+    text-align:center;
+}
+
+.signedIn {
+    background:yellow;
+    border-color:gray;
+    border-style:dashed;
+    display:inline-block;
+    float:right;
+    text-align:center;
+    width:6em;
 }
 

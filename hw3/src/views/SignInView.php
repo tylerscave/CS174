@@ -22,26 +22,25 @@ class SignInView extends View {
                 <link rel="stylesheet" href="./src/styles/views.css" type="text/css"/>
                 <meta charset="utf-8"/>
                 <meta name="author" content="Tyler Jones"/>
-                <meta name="description" content="Image Rating Sign In page for CS174 Hw3"/>
+                <meta name="description" content="Sign In page for the Image Rating System"/>
             </head>
             <body>
-                <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
-                <p class="centered">Sign In form for Image Rating</p>
-                <form class="centered" id="loginForm" method="post">
+                <h1><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
+                <form class="centered" id="loginForm" method="post" action="index.php">
+                    <p>Sign In form for Image Rating</p>
                     <p><label for="emailField">Email:</label>
                     <input id="emailField" type="text" name="loginEmail"></p>
                     <p><label for="passwordField">Password:</label>
                     <input id="passwordField" type="password" name="loginPassword"></p>
-                    <input type="submit" name="login" value="Login">
-                </form>
-                <form class="centered" method="post" action="index.php">
+                    <p><input type="submit" name="signIn" value="Login">
+                    <input type="submit" name="return" value="Cancel"></p>
                     <p><label for="createAccountLink">Don't have an account yet?</label>
                     <input type="submit" id="createAccountLink" name="createAccount" value="Create Account"></p>
                 </form>
                 <?php
                 if(isset($data['LOGIN_FAIL'])) {
                 ?>
-                    <p class="centered"><?=$data['LOGIN_FAIL'] ?></p>
+                    <p class="centered"> Incorrect Email or Password!!! Please try again :) </p>
                 <?php
                 }
                 ?>

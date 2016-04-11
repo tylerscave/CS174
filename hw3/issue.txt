@@ -1,6 +1,10 @@
 COPYRIGHT (C) 2016 Tyler Jones. All Rights Reserved.
-issue.text contains issues that are needed to be worked on
+issue.text contains issues that are needed to be 
+worked on for the Image Rating system.
 Solves CS174 Hw3
 @author Tyler Jones
 
-
+I chose to work on this project as a team of one, 
+therefor I did not see a need to log my own issues. 
+I worked on the project often, so keeping a mental 
+record was sufficient for me.

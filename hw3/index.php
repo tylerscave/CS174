@@ -7,8 +7,6 @@
 */
 namespace soloRider\hw3;
 session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 require_once "src/controllers/ImageRatingController.php";
 require_once "src/controllers/SignInController.php";
 require_once "src/controllers/CreateAccountController.php";
@@ -18,22 +16,18 @@ require_once "src/controllers/UploadImageController.php";
 define("NS_BASE", "soloRider\\hw3\\");
 define(NS_BASE . "NS_CONTROLLERS", "soloRider\\hw3\\controllers\\");
 define(NS_BASE . "NS_VIEWS", "soloRider\\hw3\\views\\");
-define(NS_BASE . "NS_ELEMENTS", "soloRider\\hw3\\views\\elements\\");
-define(NS_BASE . "NS_HELPERS", "soloRider\\hw3\\views\\helpers\\");
-define(NS_BASE . "NS_MODELS", "soloRider\\hw3\\models\\");
-define(NS_BASE . "NS_CONFIGS", "soloRider\\hw3\\configs\\");
 
 $allowed_controllers = ["ImageRating", "UploadImage", "SignIn", "CreateAccount"];
-//determine controller for request
+//determine controller for request (Used for Post Redirect Get and MVC)
 if (!empty($_REQUEST['c']) && in_array($_REQUEST['c'], $allowed_controllers)) {
     $controller_name = NS_CONTROLLERS . ucfirst($_REQUEST['c']). "Controller";
 } elseif (isset($_REQUEST['logout']) || isset($_REQUEST['return'])) {
     $controller_name = NS_CONTROLLERS . "ImageRatingController";
-} elseif (isset($_REQUEST['login']) || isset($_REQUEST['signIn']) || isset($_REQUEST['returnSignIn'])) {
+} elseif (isset($_REQUEST['signIn'])) {
     $controller_name = NS_CONTROLLERS . "SignInController";
-} elseif (isset($_REQUEST['createAccount']) || isset($_REQUEST['submitCreateAccount'])) {
+} elseif (isset($_REQUEST['createAccount'])) {
     $controller_name = NS_CONTROLLERS . "CreateAccountController";
-} elseif (isset($_REQUEST['uploadImage']) || isset($_REQUEST['upload'])) {
+} elseif (isset($_REQUEST['uploadImage'])) {
     $controller_name = NS_CONTROLLERS . "UploadImageController";
 } else {
     $controller_name = NS_CONTROLLERS . "ImageRatingController";

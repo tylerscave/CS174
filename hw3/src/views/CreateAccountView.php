@@ -22,12 +22,12 @@ class CreateAccountView extends View {
                 <link rel="stylesheet" href="./src/styles/views.css" type="text/css"/>
                 <meta charset="utf-8"/>
                 <meta name="author" content="Tyler Jones"/>
-                <meta name="description" content="Image Rating Create Account page for CS174 Hw3"/>
+                <meta name="description" content="Create Account page for the Image Rating System"/>
             </head>
             <body>
-                <h1 class="centered"><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
-                <p class="centered">Create a new account for Image Rating</p>
-                <form class="centered" id="createAccountForm" method="post">
+                <h1><img src="./src/resources/logo.png" alt="Image Rating" /></h1>
+                <form class="centered" id="createAccountForm" method="post" action="index.php">
+                    <p>Create a new account for Image Rating</p>
                     <p><label for="userNameField">Username:</label>
                     <input id="userNameField" type="text" name="createUserName"></p>
                     <p><label for="emailField">Email:</label>
@@ -36,24 +36,21 @@ class CreateAccountView extends View {
                     <input id="passwordField" type="password" name="createPassword"></p>
                     <p><label for="confirmPasswordField">Confirm Password:</label>
                     <input id="confirmPasswordField" type="password" name="confirmPassword"></p>
-                    <input type="submit" name="submitCreateAccount" value="Submit">
+                    <p><input type="submit" name="createAccount" value="Submit">
+                    <input type="submit" name="return" value="Cancel"></p>
                 </form>
                 <?php 
-                if(isset($data['ACCOUNT_CREATED'])) {
+                if(isset($data['ACCOUNT_EXISTS'])) {
                 ?>
-                    <p class="centered"><?=$data['ACCOUNT_CREATED'] ?></p>
-                <?php
-                } elseif(isset($data['ACCOUNT_EXISTS'])) {
-                ?>
-                    <p class="centered"><?=$data['ACCOUNT_EXISTS'] ?></p>
                     <form class="centered" method="post" action="index.php">
+                        <p> You already have an account with Image Rating! </p>
                         <label for="returnSignIn">Done creating accounts?</label>
-                        <input type="submit" id="returnSignIn" name="returnSignIn" value="Login">
+                        <input type="submit" id="returnSignIn" name="signIn" value="Login">
                     </form>
                 <?php
-                } elseif(isset($data['ACCOUNT_NOT_CREATED'])) {
+                } elseif(isset($data['ACCOUNT_NOT_CREATED']) && $data['ACCOUNT_NOT_CREATED']) {
                 ?>
-                    <p class="centered"><?=$data['ACCOUNT_NOT_CREATED'] ?></p>
+                    <p class="centered"> Something went wrong, please try again. </p>
                 <?php
                 }
                 ?>

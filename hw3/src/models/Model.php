@@ -2,6 +2,7 @@
 /**
  *COPYRIGHT (C) 2016 Tyler Jones. All Rights Reserved.
  * Model.php is the base class for all models used in hw3
+ * It's primary duty is to make a connection to the database
  * Solves CS174 Hw3
  * @author Tyler Jones
 */
@@ -24,33 +25,5 @@ abstract class Model {
             echo "Connection failed: " . $this->conn->connect_error . "\n";
         }
         return $this->conn;
-// this will need to be closed somewhere. Maybe in the child models themselves after manipulation of DB
-//mysqli_close($con);
-    }
-
-    /**
-     * updateModel updates the model from the database
-     * This method should be overriden
-     */
-    //public abstract function updateModel();
-
-    /**
-     * Used to do something that is common to each model
-    */
-    public function doCommonStuff($someParameters) {
-        /**
-         * Add actual code here
-        */
-        return $out;
-    }
-
-    /**
-     * Used to do something that is common to each model
-    */
-    public function doOtherCommonStuff($someParameters) {
-        /**
-         * Add actual code here
-        */
-        return $out;
     }
 }

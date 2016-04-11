@@ -16,10 +16,8 @@ abstract class Controller {
     public abstract function processRequest();
     /**
      * Used to remove bad input from either a GET'd or POST'd form variable
-     *
      * @param string $request_field name of form variable to sanitize
-     * @param string $type how to sanitize it. For now can be either
-     *      string or email.
+     * @param string $type how to sanitize it. Can be email, string, or file
      * @return $_REQUEST['$request_field'] after sanitization
      */
     public function sanitize($request_field, $type) {
@@ -49,13 +47,13 @@ abstract class Controller {
         return $out;
     }
     /**
-     * Used to check if the provided $variable is of $type.
-     *
+     * Used to check if the provided $variable is of $type, and is valid
      * @param string $variable to check the type of 
-     * @param string $type for now can be one of email, in which case checks
-     *  if $variable is a valid email address, or url, in which case checks
-     *  if a valid url.
-     * @return bool whether $variable was of $type
+     * @param string $type for now can be one of email, url, or file.
+     *   valid emails have correct email syntax
+     *   valid urls must be a valid url string
+     *   valid files must be jpeg under 2mb for this project
+     * @return true if variable was correct type
      */
     public function validate($variable, $type) {
         switch($type) {
@@ -86,7 +84,6 @@ abstract class Controller {
     }
     /**
      * Used to get a singleton instance of the given view.
-     *
      * @param string $name name of view class desired. foo
      *  would return an instance of FooView.
      * @return object instance of desired view.

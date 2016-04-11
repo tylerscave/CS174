@@ -11,10 +11,18 @@ require_once "Model.php";
 class UserModel extends Model {
     private $conn;
 
+    /**
+     * Constructor for UserModel is used to instanciate 
+     * a connection to mysql
+     */
     public function __construct() {
         $this->conn = $this->connectToDB();
     }
 
+    /**
+     * createUser is used to create a new user for the Image
+     * Rating System. Return true if user is created.
+     */
     public function createUser($userName, $email, $pwd) {
         $pwd = md5($pwd);
         $email_query = "SELECT * FROM USER WHERE email='$email'";
@@ -29,12 +37,16 @@ class UserModel extends Model {
         } else {
             return false;
         }
-        //mysqli_close($this->conn);
     }
 
+    /**
+     * checkLogin is used to validate the users login credentials
+     * returns true if email and password match and are valid
+     */
     public function checkLogin($email, $pwd) {
         $pwd = md5($pwd);
         $id_query = "SELECT id FROM USER WHERE email = ? and password = ?";
+        //use prepared statement to query the db
         $stmt =  $this->conn->prepare($id_query);
         $stmt->bind_param("ss", $email, $pwd); //s == string
         $stmt->execute();
@@ -48,9 +60,12 @@ class UserModel extends Model {
             return $id;
         }
         mysqli_stmt_close($stmt);
-        //mysqli_close($this->conn);
     }
 
+    /**
+     * getUserName returns the userName if the user exists in the Image
+     * Rating System, otherwise returns "anonymous user".
+     */
     public function getUserName($id) {
         $userName_query = "SELECT userName FROM USER WHERE id='$id'";
         $result = $this->conn->query($userName_query);
@@ -61,6 +76,4 @@ class UserModel extends Model {
             return "anonymous user";
         }
     }
-
-//mysqli_close($con);
 }
